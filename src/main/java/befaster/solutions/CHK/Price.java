@@ -35,6 +35,10 @@ public class Price {
 		this.offerPrice = null;
 		this.offerCode = offerCode;
 	}
+	
+	public boolean useBasePrice() {
+		return offerCount == null || offerPrice == null;
+	}
 
 	public int getBasePrice() {
 		return basePrice;

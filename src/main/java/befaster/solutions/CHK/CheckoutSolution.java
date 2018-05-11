@@ -88,15 +88,13 @@ public class CheckoutSolution {
 				if (count <= 0) continue;
 			}
 			Price price = prices.get(code);
-        	if (price.getOfferCount() == null) {
+        	if (price.useBasePrice()) {
         		total += count * price.getBasePrice();
         	} else {
-        		if (price.getOfferPrice() != null) {
-	        		int basePrice = (count % price.getOfferCount()) * price.getBasePrice();
-	        		int offerPrice = (count / price.getOfferCount()) * price.getOfferPrice();
-	        		total += basePrice;
-	        		total += offerPrice;
-        		}
+        		int basePrice = (count % price.getOfferCount()) * price.getBasePrice();
+        		int offerPrice = (count / price.getOfferCount()) * price.getOfferPrice();
+        		total += basePrice;
+        		total += offerPrice;
         	}
 		}
         
