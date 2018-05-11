@@ -50,7 +50,10 @@ public class CheckoutSolution {
         	if (price.getOfferCount() == null) {
         		total += count * price.getBasePrice();
         	} else {
-        		
+        		int basePrice = (count % price.getOfferCount()) * price.getBasePrice();
+        		int offerPrice = (count / price.getOfferCount()) * price.getOfferPrice();
+        		total += basePrice;
+        		total += offerPrice;
         	}
 		}
         
