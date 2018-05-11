@@ -2,8 +2,10 @@ package befaster.solutions.CHK;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 // TODO Read dynamically ...
 public class Prices {
@@ -44,8 +46,17 @@ public class Prices {
 		add('P', new Price(50, 5, 200));
 		add('Q', new Price(30, 3, 80));
 		add('R', new Price(50, 3, 'Q'));
-		add('S', new Price(30));
-		add('T', new Price(20));
+		
+		Set<Character> codes = new HashSet<Character>();
+		codes.add('S');
+		codes.add('T');
+		codes.add('X');
+		codes.add('Y');
+		codes.add('Z');
+		GroupDiscountOffer gdo = new GroupDiscountOffer(codes, 3, 45);
+		
+		add('S', new Price(20, gdo));
+		add('T', new Price(20, gdo));
 		add('U', new Price(40, 4, 120)); // TODO Syntactic sugar to help readability
 		
 		bulkBuyOffers.clear();
