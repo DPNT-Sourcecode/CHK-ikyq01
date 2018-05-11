@@ -83,6 +83,11 @@ public class CheckoutSolution {
             		itemsInOffer += count;
             	}
         	}
+        	if (itemsInOffer == 0) continue;
+        	
+        	for (Price price : prices) {
+        		
+        	}
         	
         	// Apply offer, starting with most expensive items
 		}
