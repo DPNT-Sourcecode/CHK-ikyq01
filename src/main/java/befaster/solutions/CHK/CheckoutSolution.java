@@ -71,15 +71,21 @@ public class CheckoutSolution {
         int total = 0;
         
         // Apply group discount offers
-//        for
-        
-        // TODO for ...
-//        GroupDiscountOffer gdo = new GroupDiscountOffer(null, 0);
         // Requirement: "The policy of the supermarket is to always favor the customer when applying special offers."
         // NOTE: To fulfil this requirement, it is necessary to apply a GDO to the most expensive items first
         //       For simplicity, the current implementation only considers the base price of each item
-        
-        
+        for (GroupDiscountOffer offer : gdos) {
+			// Count number of items in offer
+        	int itemsInOffer = 0;
+        	for (Character code : offer.getCodes()) {
+            	Integer count = counts.get(code);
+            	if (count != null) {
+            		itemsInOffer += count;
+            	}
+        	}
+        	
+        	// Apply offer, starting with most expensive items
+		}
         
     	// Add basic and bulk buy prices
         for (Character code : counts.keySet()) {
