@@ -29,6 +29,11 @@ public class Price {
 		getItemsFreeOffers.add(new GetItemsFreeOffer(offerCount, offerCode));
 	}
 	
+	public Price(int basePrice, List<BulkBuyOffer> bulkBuyOffers) {
+		this.basePrice = basePrice;
+		bulkBuyOffers.addAll(bulkBuyOffers);
+	}
+	
 	public boolean useBasePrice() {
 //		return offerCount == null || offerPrice == null;
 		return false; // TODO

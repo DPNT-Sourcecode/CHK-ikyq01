@@ -1,14 +1,20 @@
 package befaster.solutions.CHK;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CheckoutSolution {
 	
 	private static final Map<Character, Price> prices = new HashMap<Character, Price>();
 	static {
-		prices.put('A', new Price(50, 3, 130));
+		List<BulkBuyOffer> bulkBuyOffers = new ArrayList<BulkBuyOffer>();
+		bulkBuyOffers.add(new BulkBuyOffer(3, 130));
+		bulkBuyOffers.add(new BulkBuyOffer(5, 200));
+		prices.put('A', new Price(50, bulkBuyOffers));
+		
 		prices.put('B', new Price(30, 2, 45));
 		prices.put('C', new Price(20));
 		prices.put('D', new Price(15));

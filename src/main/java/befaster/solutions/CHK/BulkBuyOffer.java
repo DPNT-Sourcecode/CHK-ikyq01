@@ -20,7 +20,7 @@ public class BulkBuyOffer implements Comparable<BulkBuyOffer> {
 
 	@Override
 	public int compareTo(BulkBuyOffer offer) {
-		return this.offerCount - offer.offerCount;
+		return offer.offerCount - this.offerCount;
 	}
 
 }
