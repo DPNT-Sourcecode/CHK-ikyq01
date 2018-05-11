@@ -102,6 +102,7 @@ public class CheckoutSolution {
                 	}
 				}
         		total += offer.getOfferPrice();
+        		itemsInOffer -= offer.getOfferCount();
         	}
 		}
         
