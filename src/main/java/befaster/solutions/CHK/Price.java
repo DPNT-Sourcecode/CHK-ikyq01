@@ -31,7 +31,7 @@ public class Price {
 	
 	public Price(int basePrice, List<BulkBuyOffer> bulkBuyOffers) {
 		this.basePrice = basePrice;
-		bulkBuyOffers.addAll(bulkBuyOffers);
+		this.bulkBuyOffers.addAll(bulkBuyOffers);
 	}
 	
 	public boolean useBasePrice() {

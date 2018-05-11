@@ -39,8 +39,8 @@ public class CheckoutSolutionTest {
 
     @Test
     public void compute_checkout() {
-//        assertThat(checkout.checkout("A"), equalTo(50));
-//        assertThat(checkout.checkout("AA"), equalTo(100));
+        assertThat(checkout.checkout("A"), equalTo(50));
+        assertThat(checkout.checkout("AA"), equalTo(100));
         assertThat(checkout.checkout("AAA"), equalTo(130));
         assertThat(checkout.checkout("AAAA"), equalTo(180));
         assertThat(checkout.checkout("ABCD"), equalTo(115));
@@ -52,5 +52,9 @@ public class CheckoutSolutionTest {
         assertThat(checkout.checkout("ABCDEF"), equalTo(-1));
         
         assertThat(checkout.checkout("AAAAA"), equalTo(200));
+        assertThat(checkout.checkout("AAAAAA"), equalTo(250));
+        assertThat(checkout.checkout("AAAAAAA"), equalTo(300));
+        assertThat(checkout.checkout("AAAAAAAA"), equalTo(330));
+        assertThat(checkout.checkout("AAAAAAAAA"), equalTo(380));
     }
 }
