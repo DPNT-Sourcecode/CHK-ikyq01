@@ -85,6 +85,8 @@ public class CheckoutSolutionTest {
     public void compute_gdo() {
 
         assertThat(checkout.checkout("ABCDEFGHIJKLMNOPQRUVW"), equalTo(755));
+        assertThat(checkout.checkout("ABCDEFGHIJKLMNOPQRUVWSTX"), equalTo(800));
+        
 //        assertThat(checkout.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZ"), equalTo(755));
 //        assertThat(checkout.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"), equalTo(1602));
 
