@@ -21,6 +21,10 @@ public class CheckoutSolution {
 		prices.put('E', new Price(40, 2, 'B'));
 
 		// Implement initially using a BulkBuyOffer
+//		Our marketing team wants to try rewording the offer to see if it affects consumption
+//		Instead of multi-pricing this item they want to say "buy 2Fs and get another F free"
+//		The offer requires you to have 3 Fs in the basket.
+		// TODO Is there any practical difference? 
 		prices.put('F', new Price(10, 3, 20));
 	}
 
