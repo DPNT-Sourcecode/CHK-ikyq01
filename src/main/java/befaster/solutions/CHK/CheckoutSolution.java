@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class CheckoutSolution {
 	
-//	private static final Map<Character, Integer> prices = new 
+	private static final Map<Character, Price> prices = new HashMap<Character, Price>(); 
 	
     public Integer checkout(String skus) {
     	

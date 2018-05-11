@@ -1,5 +1,10 @@
 package befaster.solutions.CHK;
 
+/**
+ * TODO Comments!
+ * 
+ * @author Name
+ */
 public class Price {
 	
 	private final int basePrice;
