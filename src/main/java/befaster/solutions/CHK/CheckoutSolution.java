@@ -38,7 +38,7 @@ public class CheckoutSolution {
 	
     public Integer checkout(String skus) {
     	
-    	// TODO Conver to upper case?
+    	// TODO Convert to upper case?
     	
         Map<Character, Integer> counts = new HashMap<Character, Integer>();
     	char[] codes = skus.toCharArray();
@@ -52,7 +52,7 @@ public class CheckoutSolution {
 			counts.put(code, count);
 		}
         
-    	int total = 0;
+        Map<Character, Integer> freeCounts = new HashMap<Character, Integer>();
         for (Character code : counts.keySet()) {
         	int count = counts.get(code); 
 			Price price = prices.get(code);
@@ -62,21 +62,32 @@ public class CheckoutSolution {
 //				continue;
 				return -1;
 			}
-        	if (price.getOfferCount() == null) {
-        		total += count * price.getBasePrice();
-        	} else {
+    		if (price.getOfferCode() == null) {
         		int basePrice = (count % price.getOfferCount()) * price.getBasePrice();
         		int offerPrice = (count / price.getOfferCount()) * price.getOfferPrice();
         		total += basePrice;
         		total += offerPrice;
+    		}
+		}
+        
+    	int total = 0;
+        for (Character code : counts.keySet()) {
+        	int count = counts.get(code); 
+			Price price = prices.get(code);
+        	if (price.getOfferCount() == null) {
+        		total += count * price.getBasePrice();
+        	} else {
+        		if (price.getOfferCode() == null) {
+	        		int basePrice = (count % price.getOfferCount()) * price.getBasePrice();
+	        		int offerPrice = (count / price.getOfferCount()) * price.getOfferPrice();
+	        		total += basePrice;
+	        		total += offerPrice;
+        		} else {
+        		}
         	}
 		}
         
         return total;
     }
-    
-    public static void main(String[] args) {
-		System.out.println(5/2);
-		System.out.println(5%2);
-	}
+
 }
