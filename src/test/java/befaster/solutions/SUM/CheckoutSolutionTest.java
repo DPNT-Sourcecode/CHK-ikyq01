@@ -50,5 +50,7 @@ public class CheckoutSolutionTest {
         assertThat(checkout.checkout("EEBB"), equalTo(110));
         assertThat(checkout.checkout("EEEEBB"), equalTo(160));
         assertThat(checkout.checkout("ABCDEF"), equalTo(-1));
+        
+        assertThat(checkout.checkout("AAAAA"), equalTo(180));
     }
 }
