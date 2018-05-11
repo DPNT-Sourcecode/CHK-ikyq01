@@ -32,6 +32,30 @@ public class Prices {
 		bulkBuyOffers.add(new BulkBuyOffer(5, 45));
 		bulkBuyOffers.add(new BulkBuyOffer(10, 80));
 		prices.put('H', new Price(10, bulkBuyOffers));
+
+		prices.put('I', new Price(35));
+		prices.put('J', new Price(60));
+		prices.put('K', new Price(80, 2, 150));
+		prices.put('L', new Price(90));
+		prices.put('M', new Price(15));
+		prices.put('N', new Price(40, 3, 'M'));
+		prices.put('0', new Price(10));
+		prices.put('P', new Price(50, 5, 200));
+		prices.put('Q', new Price(30, 3, 80));
+		prices.put('R', new Price(50, 3, 'Q'));
+		prices.put('S', new Price(30));
+		prices.put('T', new Price(20));
+		prices.put('U', new Price(40, 4, 120)); // TODO Syntactic sugar to help readability
+		
+		bulkBuyOffers.clear();
+		bulkBuyOffers.add(new BulkBuyOffer(2, 90));
+		bulkBuyOffers.add(new BulkBuyOffer(3, 130));
+		prices.put('V', new Price(50, bulkBuyOffers));
+
+		prices.put('W', new Price(20));
+		prices.put('X', new Price(90));
+		prices.put('Y', new Price(10));
+		prices.put('Z', new Price(50));
 	}
 	
 	public static Map<Character, Price> getPrices() {
