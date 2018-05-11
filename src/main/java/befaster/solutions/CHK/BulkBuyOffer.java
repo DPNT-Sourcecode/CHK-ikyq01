@@ -1,6 +1,6 @@
 package befaster.solutions.CHK;
 
-public class BulkBuyOffer {
+public class BulkBuyOffer implements Comparable<BulkBuyOffer> {
 
 	private final int offerCount;
 	private final int offerPrice;
@@ -16,6 +16,11 @@ public class BulkBuyOffer {
 
 	public Integer getOfferPrice() {
 		return offerPrice;
+	}
+
+	@Override
+	public int compareTo(BulkBuyOffer offer) {
+		return this.offerCount - offer.offerCount;
 	}
 
 }

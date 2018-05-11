@@ -90,7 +90,7 @@ public class CheckoutSolution {
 				if (count <= 0) continue;
 			}
 			Price price = prices.get(code);
-        	if (price.useBasePrice()) {
+        	if (price.getBulkBuyOffers().isEmpty()) {
         		total += count * price.getBasePrice();
         	} else {
         		int basePrice = (count % price.getOfferCount()) * price.getBasePrice();

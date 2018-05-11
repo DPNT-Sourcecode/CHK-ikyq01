@@ -38,7 +38,7 @@ public class Price {
 		return basePrice;
 	}
 
-	public List<BulkBuyOffer> getMultiBuys() {
+	public List<BulkBuyOffer> getBulkBuyOffers() {
 		return bulkBuyOffers;
 	}
 
