@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class Price implements Comparable<Price> {
 	
+	private char code;
 	private final int basePrice;
 	
 	private final List<BulkBuyOffer> bulkBuyOffers = new ArrayList<BulkBuyOffer>();
@@ -34,9 +35,12 @@ public class Price implements Comparable<Price> {
 		this.bulkBuyOffers.addAll(bulkBuyOffers);
 	}
 	
-	public boolean useBasePrice() {
-//		return offerCount == null || offerPrice == null;
-		return false; // TODO
+	public char getCode() {
+		return code;
+	}
+
+	public void setCode(char code) {
+		this.code = code;
 	}
 
 	public int getBasePrice() {
