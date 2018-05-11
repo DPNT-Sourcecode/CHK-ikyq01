@@ -40,6 +40,7 @@ public class CheckoutSolution {
     	
     	// TODO Convert to upper case?
     	
+    	// Count each code
         Map<Character, Integer> counts = new HashMap<Character, Integer>();
     	char[] codes = skus.toCharArray();
         for (char code : codes) {
@@ -52,6 +53,7 @@ public class CheckoutSolution {
 			counts.put(code, count);
 		}
         
+        // Compute number of free items
         Map<Character, Integer> freeCounts = new HashMap<Character, Integer>();
         for (Character code : counts.keySet()) {
         	int count = counts.get(code); 
@@ -62,27 +64,31 @@ public class CheckoutSolution {
 //				continue;
 				return -1;
 			}
-    		if (price.getOfferCode() == null) {
-        		int basePrice = (count % price.getOfferCount()) * price.getBasePrice();
-        		int offerPrice = (count / price.getOfferCount()) * price.getOfferPrice();
-        		total += basePrice;
-        		total += offerPrice;
+    		if (price.getOfferCode() != null) {
+        		int freeItemCount = count / price.getOfferCount();
+    			Integer totalFreeItemCount = freeCounts.get(price.getOfferCode());
+    			if (totalFreeItemCount == null) {
+    				totalFreeItemCount = freeItemCount;
+    			} else {
+    				totalFreeItemCount += freeItemCount;
+    			}
+    			freeCounts.put(code, totalFreeItemCount);
     		}
 		}
         
-    	int total = 0;
+    	// Compute total cost
+        int total = 0;
         for (Character code : counts.keySet()) {
         	int count = counts.get(code); 
 			Price price = prices.get(code);
         	if (price.getOfferCount() == null) {
         		total += count * price.getBasePrice();
         	} else {
-        		if (price.getOfferCode() == null) {
+        		if (price.getOfferPrice() != null) {
 	        		int basePrice = (count % price.getOfferCount()) * price.getBasePrice();
 	        		int offerPrice = (count / price.getOfferCount()) * price.getOfferPrice();
 	        		total += basePrice;
 	        		total += offerPrice;
-        		} else {
         		}
         	}
 		}
