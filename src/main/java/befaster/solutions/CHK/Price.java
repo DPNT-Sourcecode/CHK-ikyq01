@@ -44,14 +44,6 @@ public class Price {
 		return basePrice;
 	}
 
-	public Integer getOfferCount() {
-		return offerCount;
-	}
-
-	public Integer getOfferPrice() {
-		return offerPrice;
-	}
-
 	public Character getOfferCode() {
 		return offerCode;
 	}
