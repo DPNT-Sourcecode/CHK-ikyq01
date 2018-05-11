@@ -38,7 +38,7 @@ public class Prices {
 
 		add('I', new Price(35));
 		add('J', new Price(60));
-		add('K', new Price(80, 2, 120));
+		add('K', new Price(70, 2, 120));
 		add('L', new Price(90));
 		add('M', new Price(15));
 		add('N', new Price(40, 3, 'M'));
