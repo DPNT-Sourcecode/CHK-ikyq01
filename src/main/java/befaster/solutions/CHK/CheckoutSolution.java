@@ -56,10 +56,17 @@ public class CheckoutSolution {
         // TODO This does not test for "circular" offers
         // c.f. "All the offers are well balanced so that they can be safely combined."
         
+        
+        int total = 0;
+        
         // Apply group discount offers
         
-    	// Compute total cost
-        int total = 0;
+        // TODO for ...
+        GroupDiscountOffer gdo = new GroupDiscountOffer(null, 0);
+        
+        
+        
+    	// Add basic and bulk buy prices
         for (Character code : counts.keySet()) {
         	int count = counts.get(code); 
 			Integer freeItemCount = freeCounts.get(code);
