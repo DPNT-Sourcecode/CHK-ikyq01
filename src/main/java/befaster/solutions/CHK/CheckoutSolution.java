@@ -11,6 +11,7 @@ public class CheckoutSolution {
 		prices.put('B', new Price(30, 2, 45));
 		prices.put('C', new Price(20));
 		prices.put('D', new Price(15));
+		prices.put('E', new Price(40, 2, 'B'));
 	}
 
 //	Our price table and offers: 
@@ -22,6 +23,17 @@ public class CheckoutSolution {
 //		| C    | 20    |                |
 //		| D    | 15    |                |
 //		+------+-------+----------------+
+
+//	Our price table and offers: 
+//		+------+-------+------------------------+
+//		| Item | Price | Special offers         |
+//		+------+-------+------------------------+
+//		| A    | 50    | 3A for 130, 5A for 200 |
+//		| B    | 30    | 2B for 45              |
+//		| C    | 20    |                        |
+//		| D    | 15    |                        |
+//		| E    | 40    | 2E get one B free      |
+//		+------+-------+------------------------+
 
 	
     public Integer checkout(String skus) {
