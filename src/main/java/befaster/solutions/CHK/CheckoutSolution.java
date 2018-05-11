@@ -1,45 +1,10 @@
 package befaster.solutions.CHK;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class CheckoutSolution {
-	
-//	Our price table and offers: 
-//		+------+-------+----------------+
-//		| Item | Price | Special offers |
-//		+------+-------+----------------+
-//		| A    | 50    | 3A for 130     |
-//		| B    | 30    | 2B for 45      |
-//		| C    | 20    |                |
-//		| D    | 15    |                |
-//		+------+-------+----------------+
-
-//	Our price table and offers: 
-//		+------+-------+------------------------+
-//		| Item | Price | Special offers         |
-//		+------+-------+------------------------+
-//		| A    | 50    | 3A for 130, 5A for 200 |
-//		| B    | 30    | 2B for 45              |
-//		| C    | 20    |                        |
-//		| D    | 15    |                        |
-//		| E    | 40    | 2E get one B free      |
-//		+------+-------+------------------------+
-
-//  Our price table and offers: 
-//	+------+-------+------------------------+
-//	| Item | Price | Special offers         |
-//	+------+-------+------------------------+
-//	| A    | 50    | 3A for 130, 5A for 200 |
-//	| B    | 30    | 2B for 45              |
-//	| C    | 20    |                        |
-//	| D    | 15    |                        |
-//	| E    | 40    | 2E get one B free      |
-//	| F    | 10    | 2F get one F free      |
-//	+------+-------+------------------------+
 	
     public Integer checkout(String skus) {
     	
@@ -60,7 +25,7 @@ public class CheckoutSolution {
         
         // Check each code has a price, and sort bulk buy offers
         for (Character code : counts.keySet()) {
-			Price price = prices.get(code);
+			Price price = Prices.getPrice(code);
 			if (price == null) {
 				// TODO Logging
 				System.out.println("Unknown code: " + code);
@@ -74,7 +39,7 @@ public class CheckoutSolution {
         Map<Character, Integer> freeCounts = new HashMap<Character, Integer>();
         for (Character code : counts.keySet()) {
         	int count = counts.get(code); 
-			Price price = prices.get(code);
+			Price price = Prices.getPrice(code);
 			for (GetItemsFreeOffer offer : price.getGetItemsFreeOffers()) {
 				
         		int freeItemCount = (count / offer.getOfferCount()) * offer.getItemCount();
@@ -100,7 +65,7 @@ public class CheckoutSolution {
 				count = count - freeItemCount;
 				if (count <= 0) continue;
 			}
-			Price price = prices.get(code);
+			Price price = Prices.getPrice(code);
         	if (price.getBulkBuyOffers().isEmpty()) {
         		total += count * price.getBasePrice();
         	} else {
