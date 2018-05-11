@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// TODO Read dynamically ...
 public class Prices {
 
 	private static final Map<Character, Price> prices = new HashMap<Character, Price>();

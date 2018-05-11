@@ -8,7 +8,7 @@ import java.util.List;
  * 
  * @author Name
  */
-public class Price {
+public class Price implements Comparable<Price> {
 	
 	private final int basePrice;
 	
@@ -49,6 +49,11 @@ public class Price {
 
 	public List<GetItemsFreeOffer> getGetItemsFreeOffers() {
 		return getItemsFreeOffers;
+	}
+
+	@Override
+	public int compareTo(Price o) {
+		return o.basePrice - this.basePrice;
 	}
 	
 }

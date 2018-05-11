@@ -1,7 +1,9 @@
 package befaster.solutions.CHK;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CheckoutSolution {
@@ -23,7 +25,8 @@ public class CheckoutSolution {
 			counts.put(code, count);
 		}
         
-        // Check each code has a price, and sort bulk buy offers
+        // Check each code has a price, get list of prices, and sort bulk buy offers
+        List<Price> prices = new ArrayList<Price>();
         for (Character code : counts.keySet()) {
 			Price price = Prices.getPrice(code);
 			if (price == null) {
@@ -33,7 +36,9 @@ public class CheckoutSolution {
 				return -1;
 			}
 			Collections.sort(price.getBulkBuyOffers());
+			prices.add(price);
         }
+		Collections.sort(prices);
         
         // Compute number of free items
         Map<Character, Integer> freeCounts = new HashMap<Character, Integer>();
