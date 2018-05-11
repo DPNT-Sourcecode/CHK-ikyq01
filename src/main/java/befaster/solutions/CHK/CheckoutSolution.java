@@ -84,9 +84,14 @@ public class CheckoutSolution {
             		itemsInOffer += count;
             	}
         	}
-        	if (itemsInOffer < offer.getOfferCount()) continue;
         	
         	// Apply offer, starting with most expensive items
+        	while (itemsInOffer >= offer.getOfferCount()) {
+        		for (int i = 0; i < offer.getOfferCount(); i++) {
+					
+				}
+        	}
+        	
         	for (Price price : prices) {
         		
         	}
