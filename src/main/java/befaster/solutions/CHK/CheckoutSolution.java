@@ -74,6 +74,7 @@ public class CheckoutSolution {
         // Requirement: "The policy of the supermarket is to always favor the customer when applying special offers."
         // NOTE: To fulfil this requirement, it is necessary to apply a GDO to the most expensive items first
         //       For simplicity, the current implementation only considers the base price of each item
+		// TODO handling of overlapping group discounts
         for (GroupDiscountOffer offer : gdos) {
 			// Count number of items in offer
         	int itemsInOffer = 0;
@@ -83,13 +84,12 @@ public class CheckoutSolution {
             		itemsInOffer += count;
             	}
         	}
-        	if (itemsInOffer == 0) continue;
+        	if (itemsInOffer < offer.getOfferCount()) continue;
         	
+        	// Apply offer, starting with most expensive items
         	for (Price price : prices) {
         		
         	}
-        	
-        	// Apply offer, starting with most expensive items
 		}
         
     	// Add basic and bulk buy prices
