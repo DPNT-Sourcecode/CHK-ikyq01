@@ -90,16 +90,18 @@ public class CheckoutSolution {
         		for (int i = 0; i < offer.getOfferCount(); i++) {
         			// TODO Optimise?
                 	for (Price price : prices) {
-                    	Integer count = counts.get(price.getCode());
-                    	if (count != null) {
-                    		if (count == 1) {
-                    			counts.remove(price.getCode());
-                    		} else {
-                    			--count;
-                    			counts.put(price.getCode(), count);
-                    		}
-                    		break;
-                    	}
+                		if (offer.getCodes().contains(price.getCode())) {
+	                    	Integer count = counts.get(price.getCode());
+	                    	if (count != null) {
+	                    		if (count == 1) {
+	                    			counts.remove(price.getCode());
+	                    		} else {
+	                    			--count;
+	                    			counts.put(price.getCode(), count);
+	                    		}
+	                    		break;
+	                    	}
+                		}
                 	}
 				}
         		total += offer.getOfferPrice();

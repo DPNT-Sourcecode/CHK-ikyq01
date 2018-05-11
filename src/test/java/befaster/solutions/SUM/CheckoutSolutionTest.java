@@ -84,19 +84,18 @@ public class CheckoutSolutionTest {
     @Test
     public void compute_gdo() {
 
+        assertThat(checkout.checkout("STX"), equalTo(45));
+        assertThat(checkout.checkout("STXSTX"), equalTo(90));
+        assertThat(checkout.checkout("STXS"), equalTo(62));
+        assertThat(checkout.checkout("STZS"), equalTo(65));
+        
         assertThat(checkout.checkout("ABCDEFGHIJKLMNOPQRUVW"), equalTo(755));
         assertThat(checkout.checkout("ABCDEFGHIJKLMNOPQRUVWSTX"), equalTo(800));
-        
-//        assertThat(checkout.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZ"), equalTo(755));
-//        assertThat(checkout.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"), equalTo(1602));
-
-//        assertThat(checkout.checkout("STX"), equalTo(45));
-//        assertThat(checkout.checkout("STXSTX"), equalTo(90));
-//        assertThat(checkout.checkout("STXS"), equalTo(62));
-//        assertThat(checkout.checkout("STZS"), equalTo(65));
+        assertThat(checkout.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"), equalTo(1602));
+        assertThat(checkout.checkout("LGCKAQXFOSKZGIWHNRNDITVBUUEOZXPYAVFDEPTBMQLYJRSMJCWH"), equalTo(1602));
+        assertThat(checkout.checkout("AAAAAPPPPPUUUUEEBRRRQAAAHHHHHHHHHHKKVVVBBNNNMFFFQQQVVHHHHHSTX"), equalTo(1655));
     }
     
-//    @Test
     public void compute_checkout() {
     	
         assertThat(checkout.checkout("A"), equalTo(50));
@@ -128,10 +127,6 @@ public class CheckoutSolutionTest {
 //        assertThat(checkout.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZ"), equalTo(965));
 //        assertThat(checkout.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"), equalTo(1880));
 
-        assertThat(checkout.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"), equalTo(1602));
-        assertThat(checkout.checkout("LGCKAQXFOSKZGIWHNRNDITVBUUEOZXPYAVFDEPTBMQLYJRSMJCWH"), equalTo(1602));
-        assertThat(checkout.checkout("AAAAAPPPPPUUUUEEBRRRQAAAHHHHHHHHHHKKVVVBBNNNMFFFQQQVVHHHHHSTX"), equalTo(1655));
-        
         assertThat(checkout.checkout("Aa"), equalTo(-1));
     }
 }
