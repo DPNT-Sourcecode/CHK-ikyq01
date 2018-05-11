@@ -63,6 +63,9 @@ public class CheckoutSolution {
         
         // TODO for ...
         GroupDiscountOffer gdo = new GroupDiscountOffer(null, 0);
+        // Requirement: "The policy of the supermarket is to always favor the customer when applying special offers."
+        // NOTE: To fulfil this requirement, it is necessary to apply a GDO to the most expensive items first
+        //       For simplicity, the current implementation only considers the base price of each item
         
         
         
