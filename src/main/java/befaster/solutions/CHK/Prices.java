@@ -25,6 +25,13 @@ public class Prices {
 //		The offer requires you to have 3 Fs in the basket.
 		// TODO Is there any practical difference? 
 		prices.put('F', new Price(10, 3, 20));
+		
+		prices.put('G', new Price(20));
+
+		bulkBuyOffers.clear();
+		bulkBuyOffers.add(new BulkBuyOffer(5, 45));
+		bulkBuyOffers.add(new BulkBuyOffer(10, 80));
+		prices.put('H', new Price(10, bulkBuyOffers));
 	}
 	
 	public static Map<Character, Price> getPrices() {
