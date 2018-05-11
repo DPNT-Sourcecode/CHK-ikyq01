@@ -19,6 +19,9 @@ public class CheckoutSolution {
 		prices.put('C', new Price(20));
 		prices.put('D', new Price(15));
 		prices.put('E', new Price(40, 2, 'B'));
+
+		// Implement initially using a BulkBuyOffer
+		prices.put('F', new Price(10, 3, 20));
 	}
 
 //	Our price table and offers: 

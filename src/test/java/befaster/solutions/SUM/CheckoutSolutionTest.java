@@ -37,6 +37,19 @@ public class CheckoutSolutionTest {
 //		| E    | 40    | 2E get one B free      |
 //		+------+-------+------------------------+
 
+//    Our price table and offers: 
+//    	+------+-------+------------------------+
+//    	| Item | Price | Special offers         |
+//    	+------+-------+------------------------+
+//    	| A    | 50    | 3A for 130, 5A for 200 |
+//    	| B    | 30    | 2B for 45              |
+//    	| C    | 20    |                        |
+//    	| D    | 15    |                        |
+//    	| E    | 40    | 2E get one B free      |
+//    	| F    | 10    | 2F get one F free      |
+//    	+------+-------+------------------------+
+    
+    
     @Test
     public void compute_checkout() {
         assertThat(checkout.checkout("A"), equalTo(50));
@@ -55,7 +68,15 @@ public class CheckoutSolutionTest {
         assertThat(checkout.checkout("AAAAAAA"), equalTo(300));
         assertThat(checkout.checkout("AAAAAAAA"), equalTo(330));
         assertThat(checkout.checkout("AAAAAAAAA"), equalTo(380));
-
+        
+        assertThat(checkout.checkout("F"), equalTo(10));
+        assertThat(checkout.checkout("FF"), equalTo(20));
+        assertThat(checkout.checkout("FFF"), equalTo(20));
+        assertThat(checkout.checkout("FFFF"), equalTo(30));
+        assertThat(checkout.checkout("FFFFF"), equalTo(40));
+        assertThat(checkout.checkout("FFFFFF"), equalTo(40));
+        assertThat(checkout.checkout("FFFFFFF"), equalTo(50));
+      
         assertThat(checkout.checkout("AZ"), equalTo(-1));
     }
 }
