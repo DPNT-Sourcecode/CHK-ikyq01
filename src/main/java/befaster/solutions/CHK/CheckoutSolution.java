@@ -88,12 +88,20 @@ public class CheckoutSolution {
         	// Apply offer, starting with most expensive items
         	while (itemsInOffer >= offer.getOfferCount()) {
         		for (int i = 0; i < offer.getOfferCount(); i++) {
-					
+        			// TODO Optimise?
+                	for (Price price : prices) {
+                    	Integer count = counts.get(price.getCode());
+                    	if (count != null) {
+                    		if (count == 1) {
+                    			counts.remove(price.getCode());
+                    		} else {
+                    			--count;
+                    			counts.put(price.getCode(), count);
+                    		}
+                    	}
+                	}
 				}
-        	}
-        	
-        	for (Price price : prices) {
-        		
+        		total += offer.getOfferPrice();
         	}
 		}
         
