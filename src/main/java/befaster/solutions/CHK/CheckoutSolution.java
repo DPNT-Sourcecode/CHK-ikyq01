@@ -1,5 +1,6 @@
 package befaster.solutions.CHK;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -53,8 +54,7 @@ public class CheckoutSolution {
 			counts.put(code, count);
 		}
         
-        // Compute number of free items
-        Map<Character, Integer> freeCounts = new HashMap<Character, Integer>();
+        // Check each code has a price, and sort bulk buy offers
         for (Character code : counts.keySet()) {
         	int count = counts.get(code); 
 			Price price = prices.get(code);
@@ -64,6 +64,14 @@ public class CheckoutSolution {
 //				continue;
 				return -1;
 			}
+			Collections.sort(price.getBulkBuyOffers());
+        }
+        
+        // Compute number of free items
+        Map<Character, Integer> freeCounts = new HashMap<Character, Integer>();
+        for (Character code : counts.keySet()) {
+        	int count = counts.get(code); 
+			Price price = prices.get(code);
 			for (GetItemsFreeOffer offer : price.getGetItemsFreeOffers()) {
 				
         		int freeItemCount = (count / offer.getOfferCode()) * offer.getItemCount();
@@ -93,6 +101,9 @@ public class CheckoutSolution {
         	if (price.getBulkBuyOffers().isEmpty()) {
         		total += count * price.getBasePrice();
         	} else {
+        		for (BulkBuyOffer offer : price.getBulkBuyOffers()) {
+        			
+        		}
         		int basePrice = (count % price.getOfferCount()) * price.getBasePrice();
         		int offerPrice = (count / price.getOfferCount()) * price.getOfferPrice();
         		total += basePrice;
