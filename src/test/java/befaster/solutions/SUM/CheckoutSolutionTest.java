@@ -96,6 +96,7 @@ public class CheckoutSolutionTest {
         assertThat(checkout.checkout("AAAAAPPPPPUUUUEEBRRRQAAAHHHHHHHHHHKKVVVBBNNNMFFFQQQVVHHHHHSTX"), equalTo(1655));
     }
     
+    @Test
     public void compute_checkout() {
     	
         assertThat(checkout.checkout("A"), equalTo(50));
