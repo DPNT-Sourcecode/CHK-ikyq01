@@ -72,11 +72,12 @@ public class CheckoutSolution {
     			} else {
     				totalFreeItemCount += freeItemCount;
     			}
-    			freeCounts.put(code, totalFreeItemCount);
+    			freeCounts.put(price.getOfferCode(), totalFreeItemCount);
     		}
 		}
         
         // TODO This does not test for "circular" offers
+        // c.f. "All the offers are well balanced so that they can be safely combined."
         
     	// Compute total cost
         int total = 0;

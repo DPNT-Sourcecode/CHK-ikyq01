@@ -39,14 +39,16 @@ public class CheckoutSolutionTest {
 
     @Test
     public void compute_checkout() {
-//        assertThat(checkout.checkout("A"), equalTo(50));
-//        assertThat(checkout.checkout("AA"), equalTo(100));
-//        assertThat(checkout.checkout("AAA"), equalTo(130));
-//        assertThat(checkout.checkout("AAAA"), equalTo(180));
-//        assertThat(checkout.checkout("ABCD"), equalTo(115));
-//        assertThat(checkout.checkout("E"), equalTo(40));
+        assertThat(checkout.checkout("A"), equalTo(50));
+        assertThat(checkout.checkout("AA"), equalTo(100));
+        assertThat(checkout.checkout("AAA"), equalTo(130));
+        assertThat(checkout.checkout("AAAA"), equalTo(180));
+        assertThat(checkout.checkout("ABCD"), equalTo(115));
+        assertThat(checkout.checkout("E"), equalTo(40));
         assertThat(checkout.checkout("EE"), equalTo(80));
         assertThat(checkout.checkout("EEB"), equalTo(80));
+        assertThat(checkout.checkout("EEBB"), equalTo(110));
+        assertThat(checkout.checkout("EEEEBB"), equalTo(160));
         assertThat(checkout.checkout("ABCDEF"), equalTo(-1));
     }
 }
