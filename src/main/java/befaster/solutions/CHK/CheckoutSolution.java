@@ -64,18 +64,16 @@ public class CheckoutSolution {
 //				continue;
 				return -1;
 			}
-			for (char c : codes) {
+			for (GetItemsFreeOffer offer : price.getGetItemsFreeOffers()) {
 				
-			}
-    		if (price.getOfferCode() != null) {
-        		int freeItemCount = count / price.getOfferCount();
-    			Integer totalFreeItemCount = freeCounts.get(price.getOfferCode());
+        		int freeItemCount = (count / offer.getOfferCode()) * offer.getItemCount();
+    			Integer totalFreeItemCount = freeCounts.get(offer.getOfferCode());
     			if (totalFreeItemCount == null) {
     				totalFreeItemCount = freeItemCount;
     			} else {
     				totalFreeItemCount += freeItemCount;
     			}
-    			freeCounts.put(price.getOfferCode(), totalFreeItemCount);
+    			freeCounts.put(offer.getOfferCode(), totalFreeItemCount);
     		}
 		}
         
