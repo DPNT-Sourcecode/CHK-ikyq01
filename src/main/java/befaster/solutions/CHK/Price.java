@@ -19,30 +19,30 @@ public class Price implements Comparable<Price> {
 	
 	public Price(int basePrice) {
 		this.basePrice = basePrice;
-		groupDiscountOffer = null;
+		this.groupDiscountOffer = null;
 	}
 	
 	public Price(int basePrice, int offerCount, int offerPrice) {
 		this.basePrice = basePrice;
-		bulkBuyOffers.add(new BulkBuyOffer(offerCount, offerPrice));
-		groupDiscountOffer = null;
+		this.bulkBuyOffers.add(new BulkBuyOffer(offerCount, offerPrice));
+		this.groupDiscountOffer = null;
 	}
 	
 	public Price(int basePrice, int offerCount, char offerCode) {
 		this.basePrice = basePrice;
-		getItemsFreeOffers.add(new GetItemsFreeOffer(offerCount, offerCode));
-		groupDiscountOffer = null;
+		this.getItemsFreeOffers.add(new GetItemsFreeOffer(offerCount, offerCode));
+		this.groupDiscountOffer = null;
 	}
 	
 	public Price(int basePrice, List<BulkBuyOffer> bulkBuyOffers) {
 		this.basePrice = basePrice;
 		this.bulkBuyOffers.addAll(bulkBuyOffers);
-		groupDiscountOffer = null;
+		this.groupDiscountOffer = null;
 	}
 	
 	public Price(int basePrice, GroupDiscountOffer groupDiscountOffer) {
 		this.basePrice = basePrice;
-		groupDiscountOffer = groupDiscountOffer;
+		this.groupDiscountOffer = groupDiscountOffer;
 	}
 	
 	public char getCode() {
@@ -63,6 +63,10 @@ public class Price implements Comparable<Price> {
 
 	public List<GetItemsFreeOffer> getGetItemsFreeOffers() {
 		return getItemsFreeOffers;
+	}
+
+	public GroupDiscountOffer getGroupDiscountOffer() {
+		return groupDiscountOffer;
 	}
 
 	@Override

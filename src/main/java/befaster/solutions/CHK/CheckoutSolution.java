@@ -3,8 +3,10 @@ package befaster.solutions.CHK;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class CheckoutSolution {
 	
@@ -27,6 +29,7 @@ public class CheckoutSolution {
         
         // Check each code has a price, get list of prices, and sort bulk buy offers
         List<Price> prices = new ArrayList<Price>();
+        Set<GroupDiscountOffer> gdos = new HashSet<GroupDiscountOffer>();
         for (Character code : counts.keySet()) {
 			Price price = Prices.getPrice(code);
 			if (price == null) {
@@ -37,6 +40,9 @@ public class CheckoutSolution {
 			}
 			Collections.sort(price.getBulkBuyOffers());
 			prices.add(price);
+			if (price.getGroupDiscountOffer() != null) {
+				gdos.add(price.getGroupDiscountOffer());
+			}
         }
 		Collections.sort(prices);
         
@@ -65,6 +71,7 @@ public class CheckoutSolution {
         int total = 0;
         
         // Apply group discount offers
+//        for
         
         // TODO for ...
 //        GroupDiscountOffer gdo = new GroupDiscountOffer(null, 0);
