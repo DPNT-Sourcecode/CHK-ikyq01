@@ -73,7 +73,7 @@ public class CheckoutSolution {
 			Price price = prices.get(code);
 			for (GetItemsFreeOffer offer : price.getGetItemsFreeOffers()) {
 				
-        		int freeItemCount = (count / offer.getOfferCode()) * offer.getItemCount();
+        		int freeItemCount = (count / offer.getOfferCount()) * offer.getItemCount();
     			Integer totalFreeItemCount = freeCounts.get(offer.getOfferCode());
     			if (totalFreeItemCount == null) {
     				totalFreeItemCount = freeItemCount;
