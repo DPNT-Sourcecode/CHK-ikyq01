@@ -98,6 +98,7 @@ public class CheckoutSolution {
                     			--count;
                     			counts.put(price.getCode(), count);
                     		}
+                    		break;
                     	}
                 	}
 				}
