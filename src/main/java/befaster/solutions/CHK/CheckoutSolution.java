@@ -76,10 +76,17 @@ public class CheckoutSolution {
     		}
 		}
         
+        // TODO This does not test for "circular" offers
+        
     	// Compute total cost
         int total = 0;
         for (Character code : counts.keySet()) {
         	int count = counts.get(code); 
+			Integer freeItemCount = freeCounts.get(code);
+			if (freeItemCount != null) {
+				count = count - freeItemCount;
+				if (count <= 0) continue;
+			}
 			Price price = prices.get(code);
         	if (price.getOfferCount() == null) {
         		total += count * price.getBasePrice();
