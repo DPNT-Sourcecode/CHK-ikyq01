@@ -56,7 +56,6 @@ public class CheckoutSolution {
         
         // Check each code has a price, and sort bulk buy offers
         for (Character code : counts.keySet()) {
-        	int count = counts.get(code); 
 			Price price = prices.get(code);
 			if (price == null) {
 				// TODO Logging
@@ -101,13 +100,14 @@ public class CheckoutSolution {
         	if (price.getBulkBuyOffers().isEmpty()) {
         		total += count * price.getBasePrice();
         	} else {
+        		int remaining = count;
         		for (BulkBuyOffer offer : price.getBulkBuyOffers()) {
-        			
+            		int offerPrice = (remaining / offer.getOfferCount()) * offer.getOfferPrice();
+            		total += offerPrice;
+            		remaining = remaining % offer.getOfferCount();
         		}
-        		int basePrice = (count % price.getOfferCount()) * price.getBasePrice();
-        		int offerPrice = (count / price.getOfferCount()) * price.getOfferPrice();
+        		int basePrice = remaining * price.getBasePrice();
         		total += basePrice;
-        		total += offerPrice;
         	}
 		}
         
