@@ -26,6 +26,8 @@ public class CheckoutSolution {
 	
     public Integer checkout(String skus) {
     	
+    	// TODO Conver to upper case?
+    	
         Map<Character, Integer> counts = new HashMap<Character, Integer>();
     	char[] codes = skus.toCharArray();
         for (char code : codes) {
@@ -45,7 +47,8 @@ public class CheckoutSolution {
 			if (price == null) {
 				// TODO Logging
 				System.out.println("Unknown code: " + code);
-				continue;
+//				continue;
+				return -1;
 			}
         	if (price.getOfferCount() == null) {
         		total += count * price.getBasePrice();
