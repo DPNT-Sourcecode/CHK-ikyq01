@@ -5,29 +5,60 @@ import java.util.Map;
 
 public class CheckoutSolution {
 	
-	private static final Map<Character, Price> prices = new HashMap<Character, Price>(); 
+	private static final Map<Character, Price> prices = new HashMap<Character, Price>();
+	static {
+		prices.put('A', new Price(50, 3, 130));
+		prices.put('B', new Price(30, 2, 45));
+		prices.put('C', new Price(20));
+		prices.put('D', new Price(15));
+	}
+
+//	Our price table and offers: 
+//		+------+-------+----------------+
+//		| Item | Price | Special offers |
+//		+------+-------+----------------+
+//		| A    | 50    | 3A for 130     |
+//		| B    | 30    | 2B for 45      |
+//		| C    | 20    |                |
+//		| D    | 15    |                |
+//		+------+-------+----------------+
+
 	
     public Integer checkout(String skus) {
     	
         Map<Character, Integer> counts = new HashMap<Character, Integer>();
-    	char[] chars = skus.toCharArray();
-        for (char c : chars) {
-			Integer count = counts.get(c);
+    	char[] codes = skus.toCharArray();
+        for (char code : codes) {
+			Integer count = counts.get(code);
 			if (count == null) {
 				count = 1;
 			} else {
 				++count;
 			}
-			counts.put(c, count);
-		}
-        
-        for (Character c : counts.keySet()) {
-        	int count = counts.get(c); 
-			
-        	
+			counts.put(code, count);
 		}
         
     	int total = 0;
+        for (Character code : counts.keySet()) {
+        	int count = counts.get(code); 
+			Price price = prices.get(code);
+			if (price == null) {
+				// TODO Logging
+				System.out.println("Unknown code: " + code);
+				continue;
+			}
+        	if (price.getOfferCount() == null) {
+        		total += count * price.getBasePrice();
+        	} else {
+        		
+        	}
+		}
+        
         return total;
     }
+    
+    public static void main(String[] args) {
+		System.out.println(5/2);
+		System.out.println(5%2);
+	}
 }
