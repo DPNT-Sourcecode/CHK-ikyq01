@@ -13,34 +13,37 @@ public class Price {
 	private final int basePrice;
 	
 	private final List<MultiBuy> multiBuys = new ArrayList<MultiBuy>();
-	private final Character offerCode;
+	private final List<GetOneFreeOffer> getItemsFreeOffers = new ArrayList<GetOneFreeOffer>();
 	
 	public Price(int basePrice) {
 		this.basePrice = basePrice;
-		this.offerCode = null;
 	}
 	
-	public Price(int basePrice, Integer offerCount, Integer offerPrice) {
+	public Price(int basePrice, int offerCount, int offerPrice) {
 		this.basePrice = basePrice;
 		multiBuys.add(new MultiBuy(offerCount, offerPrice));
-		this.offerCode = null;
 	}
 	
-	public Price(int basePrice, Integer offerCount, Character offerCode) {
+	public Price(int basePrice, int offerCount, char offerCode) {
 		this.basePrice = basePrice;
-		this.offerCode = offerCode;
+		getItemsFreeOffers.add(new GetOneFreeOffer(offerCount, offerCode));
 	}
 	
 	public boolean useBasePrice() {
-		return offerCount == null || offerPrice == null;
+//		return offerCount == null || offerPrice == null;
+		return false; // TODO
 	}
 
 	public int getBasePrice() {
 		return basePrice;
 	}
 
-	public Character getOfferCode() {
-		return offerCode;
+	public List<MultiBuy> getMultiBuys() {
+		return multiBuys;
+	}
+
+	public List<GetOneFreeOffer> getGetItemsFreeOffers() {
+		return getItemsFreeOffers;
 	}
 	
 }
