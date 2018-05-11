@@ -9,15 +9,15 @@ import org.junit.Test;
 import befaster.solutions.CHK.CheckoutSolution;
 
 public class CheckoutSolutionTest {
-    private CheckoutSolution hello;
+    private CheckoutSolution checkout;
 
     @Before
     public void setUp() {
-    	hello = new CheckoutSolution();
+    	checkout = new CheckoutSolution();
     }
 
     @Test
-    public void compute_sum() {
-        assertThat(hello.checkout("A"), equalTo(50));
+    public void compute_checkout() {
+        assertThat(checkout.checkout("A"), equalTo(50));
     }
 }

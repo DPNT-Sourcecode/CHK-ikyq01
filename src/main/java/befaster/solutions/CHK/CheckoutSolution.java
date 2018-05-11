@@ -1,9 +1,15 @@
 package befaster.solutions.CHK;
 
-import befaster.runner.SolutionNotImplementedException;
-
 public class CheckoutSolution {
+	
     public Integer checkout(String skus) {
-        throw new SolutionNotImplementedException();
+    	
+    	int total = 0;
+        char[] chars = skus.toCharArray();
+        for (char c : chars) {
+			
+		}
+        
+        return total;
     }
 }

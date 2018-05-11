@@ -17,7 +17,7 @@ public class HelloSolutionTest {
     }
 
     @Test
-    public void compute_sum() {
+    public void compute_hello() {
         assertThat(hello.hello(null), equalTo("Hello, World!"));
         assertThat(hello.hello("John"), equalTo("Hello, John!"));
     }
