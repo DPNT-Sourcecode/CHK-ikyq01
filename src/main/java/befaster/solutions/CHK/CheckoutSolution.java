@@ -56,6 +56,8 @@ public class CheckoutSolution {
         // TODO This does not test for "circular" offers
         // c.f. "All the offers are well balanced so that they can be safely combined."
         
+        // Apply group discount offers
+        
     	// Compute total cost
         int total = 0;
         for (Character code : counts.keySet()) {
