@@ -76,7 +76,11 @@ public class CheckoutSolutionTest {
         assertThat(checkout.checkout("FFFFF"), equalTo(40));
         assertThat(checkout.checkout("FFFFFF"), equalTo(40));
         assertThat(checkout.checkout("FFFFFFF"), equalTo(50));
-      
+
+        assertThat(checkout.checkout("O"), equalTo(10));
+        assertThat(checkout.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZ"), equalTo(965));
+        assertThat(checkout.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"), equalTo(1880));
+        
         assertThat(checkout.checkout("Aa"), equalTo(-1));
     }
 }

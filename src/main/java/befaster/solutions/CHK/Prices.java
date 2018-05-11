@@ -39,7 +39,7 @@ public class Prices {
 		prices.put('L', new Price(90));
 		prices.put('M', new Price(15));
 		prices.put('N', new Price(40, 3, 'M'));
-		prices.put('0', new Price(10));
+		prices.put('O', new Price(10));
 		prices.put('P', new Price(50, 5, 200));
 		prices.put('Q', new Price(30, 3, 80));
 		prices.put('R', new Price(50, 3, 'Q'));
