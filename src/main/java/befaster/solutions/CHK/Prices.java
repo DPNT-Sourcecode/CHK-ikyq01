@@ -65,9 +65,10 @@ public class Prices {
 		add('V', new Price(50, bulkBuyOffers));
 
 		add('W', new Price(20));
-		add('X', new Price(90));
-		add('Y', new Price(10));
-		add('Z', new Price(50));
+		
+		add('X', new Price(17, gdo));
+		add('Y', new Price(20, gdo));
+		add('Z', new Price(21, gdo));
 	}
 	
 	private static void add(char code, Price price) {
