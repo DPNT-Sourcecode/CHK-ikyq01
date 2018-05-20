@@ -1,4 +1,4 @@
-package befaster.solutions.CHK;
+package befaster.solutions.CHK.product;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,10 +7,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-// TODO Read dynamically ...
-public class Prices {
+import befaster.solutions.CHK.BulkBuyOffer;
+import befaster.solutions.CHK.GroupDiscountOffer;
 
-	private static final Map<Character, Product> prices = new HashMap<Character, Product>();
+/**
+ * Static implementation used for the coding challenge.
+ */
+public class ProductDaoImpl implements ProductDao {
+
+	private static final Map<Character, Product> products = new HashMap<Character, Product>();
 	static {
 		List<BulkBuyOffer> bulkBuyOffers = new ArrayList<BulkBuyOffer>();
 		bulkBuyOffers.add(new BulkBuyOffer(3, 130));
@@ -71,17 +76,14 @@ public class Prices {
 		add('Z', new Product(21, gdo));
 	}
 	
-	private static void add(char code, Product price) {
-		price.setCode(code);
-		prices.put(code, price);
+	private static void add(char code, Product product) {
+		product.setCode(code);
+		products.put(code, product);
 	}
 	
-	public static Map<Character, Product> getPrices() {
-		return prices;
-	}
-	
-	public static Product getPrice(char code) {
-		return prices.get(code);
+	@Override
+	public Product getProduct(char code) {
+		return products.get(code);
 	}
 
 

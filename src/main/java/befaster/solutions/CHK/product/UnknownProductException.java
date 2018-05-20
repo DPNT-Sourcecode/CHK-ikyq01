@@ -1,4 +1,4 @@
-package befaster.solutions.CHK;
+package befaster.solutions.CHK.product;
 
 @SuppressWarnings("serial")
 public class UnknownProductException extends Exception {

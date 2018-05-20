@@ -1,7 +1,11 @@
-package befaster.solutions.CHK;
+package befaster.solutions.CHK.product;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import befaster.solutions.CHK.BulkBuyOffer;
+import befaster.solutions.CHK.GetItemsFreeOffer;
+import befaster.solutions.CHK.GroupDiscountOffer;
 
 /**
  * A product, containing a code, base price, and any applicable offers.

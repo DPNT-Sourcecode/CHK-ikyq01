@@ -1,12 +1,15 @@
 package befaster.solutions.CHK;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import befaster.solutions.CHK.product.Product;
+import befaster.solutions.CHK.product.ProductService;
+import befaster.solutions.CHK.product.ProductServiceImpl;
+import befaster.solutions.CHK.product.UnknownProductException;
 
 /**
  * A solution to a "shopping checkout" coding challenge.
@@ -17,6 +20,8 @@ import java.util.Set;
  */
 public class CheckoutSolution {
 	
+	private ProductService productService = new ProductServiceImpl();
+	
 	/**
 	 * Calculates the price for a given list of products, taking into account the offers currently available.
 	 * 
@@ -26,25 +31,30 @@ public class CheckoutSolution {
 	public Integer checkout(String skus) {
     	
     	// Get a map from product code, to the number of that product in the shopping cart
-        Map<Character, Integer> productCounts = countProducts(skus);
+        Map<Character, Integer> productCounts = productService.countProducts(skus);
         
-        // Get the products in the shopping cart, sorted so that the product with the largest base price is first 
-        List<Product> products;
 		try {
-			products = getProducts(productCounts.keySet());
+			return calculatePrice(productCounts);
 		} catch (UnknownProductException e) {
 	        // NOTE: Required to return -1 if an invalid product code is found
 			// TODO? Discuss Java logging solutions
 			System.out.println("ERROR - " + e.getMessage());
 			return -1;
 		}
+	}
+        
+   	private Integer calculatePrice(Map<Character, Integer> productCounts) throws UnknownProductException {
+        
+        // Get the products in the shopping cart (sorted so that the product with the largest base price is first) 
+        List<Product> products = productService.getProducts(productCounts.keySet());
         
         // Compute number of free items
         Map<Character, Integer> freeCounts = new HashMap<Character, Integer>();
         for (Character code : productCounts.keySet()) {
-        	int count = productCounts.get(code); 
-			Product price = Prices.getPrice(code);
-			for (GetItemsFreeOffer offer : price.getGetItemsFreeOffers()) {
+        	int count = productCounts.get(code);
+        	// TODO Retrieving products multiple times ...
+			Product product = productService.getProduct(code);
+			for (GetItemsFreeOffer offer : product.getGetItemsFreeOffers()) {
 				
         		int freeItemCount = (count / offer.getOfferCount()) * offer.getItemCount();
     			Integer totalFreeItemCount = freeCounts.get(offer.getOfferCode());
@@ -111,17 +121,18 @@ public class CheckoutSolution {
 				count = count - freeItemCount;
 				if (count <= 0) continue;
 			}
-			Product price = Prices.getPrice(code);
-        	if (price.getBulkBuyOffers().isEmpty()) {
-        		total += count * price.getBasePrice();
+        	// TODO Retrieving products multiple times ...
+			Product product = productService.getProduct(code);
+        	if (product.getBulkBuyOffers().isEmpty()) {
+        		total += count * product.getBasePrice();
         	} else {
         		int remaining = count;
-        		for (BulkBuyOffer offer : price.getBulkBuyOffers()) {
+        		for (BulkBuyOffer offer : product.getBulkBuyOffers()) {
             		int offerPrice = (remaining / offer.getOfferCount()) * offer.getOfferPrice();
             		total += offerPrice;
             		remaining = remaining % offer.getOfferCount();
         		}
-        		int basePrice = remaining * price.getBasePrice();
+        		int basePrice = remaining * product.getBasePrice();
         		total += basePrice;
         	}
 		}
@@ -129,53 +140,6 @@ public class CheckoutSolution {
         return total;
     }
 
-	/**
-	// TODO Move to product service
-	 * Counts the number of times each character occurs in the given string.
-	 * 
-	 * @param productCodes The product code characters, concatenated into a single string. 
-	 * @return A Map from product codes, to the number of instances in the given string.. 
-	 */
-	private Map<Character, Integer> countProducts(String productCodes) {
-		return countCharacters(productCodes);
-	}
-	
-	private Map<Character, Integer> countCharacters(String string) {
-	
-        Map<Character, Integer> counts = new HashMap<>();
-    	char[] codes = string.toCharArray();
-        for (char code : codes) {
-			Integer count = counts.get(code);
-			if (count == null) {
-				count = 1;
-			} else {
-				++count;
-			}
-			counts.put(code, count);
-		}
-        return counts;
-	}
-	
-	// TODO Move to product service
-	private List<Product> getProducts(Set<Character> productCodes) throws UnknownProductException {
-		
-        List<Product> products = new ArrayList<Product>();
-        for (Character code : productCodes) {
-        	// TODO Move to product DAO
-			Product product = Prices.getPrice(code);
-			// TODO? Should the null check be in the service, or the DAO?
-			if (product == null) {
-				throw new UnknownProductException("Unknown code: " + code);
-			}
-			
-			// TODO Move
-			Collections.sort(product.getBulkBuyOffers());
-			products.add(product);
-        }
-		Collections.sort(products);
-		return products;
-	}
-	
 	// TODO Move to offer service
 	private Set<GroupDiscountOffer> getGroupDiscountOffers(List<Product> products) {
 		
