@@ -10,42 +10,42 @@ import java.util.Set;
 // TODO Read dynamically ...
 public class Prices {
 
-	private static final Map<Character, Price> prices = new HashMap<Character, Price>();
+	private static final Map<Character, Product> prices = new HashMap<Character, Product>();
 	static {
 		List<BulkBuyOffer> bulkBuyOffers = new ArrayList<BulkBuyOffer>();
 		bulkBuyOffers.add(new BulkBuyOffer(3, 130));
 		bulkBuyOffers.add(new BulkBuyOffer(5, 200));
-		add('A', new Price(50, bulkBuyOffers));
+		add('A', new Product(50, bulkBuyOffers));
 		
-		add('B', new Price(30, 2, 45));
-		add('C', new Price(20));
-		add('D', new Price(15));
-		add('E', new Price(40, 2, 'B'));
+		add('B', new Product(30, 2, 45));
+		add('C', new Product(20));
+		add('D', new Product(15));
+		add('E', new Product(40, 2, 'B'));
 
 		// Implement initially using a BulkBuyOffer
 //		Our marketing team wants to try rewording the offer to see if it affects consumption
 //		Instead of multi-pricing this item they want to say "buy 2Fs and get another F free"
 //		The offer requires you to have 3 Fs in the basket.
 		// TODO Is there any practical difference? 
-		add('F', new Price(10, 3, 20));
+		add('F', new Product(10, 3, 20));
 		
-		add('G', new Price(20));
+		add('G', new Product(20));
 
 		bulkBuyOffers.clear();
 		bulkBuyOffers.add(new BulkBuyOffer(5, 45));
 		bulkBuyOffers.add(new BulkBuyOffer(10, 80));
-		add('H', new Price(10, bulkBuyOffers));
+		add('H', new Product(10, bulkBuyOffers));
 
-		add('I', new Price(35));
-		add('J', new Price(60));
-		add('K', new Price(70, 2, 120));
-		add('L', new Price(90));
-		add('M', new Price(15));
-		add('N', new Price(40, 3, 'M'));
-		add('O', new Price(10));
-		add('P', new Price(50, 5, 200));
-		add('Q', new Price(30, 3, 80));
-		add('R', new Price(50, 3, 'Q'));
+		add('I', new Product(35));
+		add('J', new Product(60));
+		add('K', new Product(70, 2, 120));
+		add('L', new Product(90));
+		add('M', new Product(15));
+		add('N', new Product(40, 3, 'M'));
+		add('O', new Product(10));
+		add('P', new Product(50, 5, 200));
+		add('Q', new Product(30, 3, 80));
+		add('R', new Product(50, 3, 'Q'));
 		
 		Set<Character> codes = new HashSet<Character>();
 		codes.add('S');
@@ -55,32 +55,32 @@ public class Prices {
 		codes.add('Z');
 		GroupDiscountOffer gdo = new GroupDiscountOffer(codes, 3, 45);
 		
-		add('S', new Price(20, gdo));
-		add('T', new Price(20, gdo));
-		add('U', new Price(40, 4, 120)); // TODO Syntactic sugar to help readability
+		add('S', new Product(20, gdo));
+		add('T', new Product(20, gdo));
+		add('U', new Product(40, 4, 120)); // TODO Syntactic sugar to help readability
 		
 		bulkBuyOffers.clear();
 		bulkBuyOffers.add(new BulkBuyOffer(2, 90));
 		bulkBuyOffers.add(new BulkBuyOffer(3, 130));
-		add('V', new Price(50, bulkBuyOffers));
+		add('V', new Product(50, bulkBuyOffers));
 
-		add('W', new Price(20));
+		add('W', new Product(20));
 		
-		add('X', new Price(17, gdo));
-		add('Y', new Price(20, gdo));
-		add('Z', new Price(21, gdo));
+		add('X', new Product(17, gdo));
+		add('Y', new Product(20, gdo));
+		add('Z', new Product(21, gdo));
 	}
 	
-	private static void add(char code, Price price) {
+	private static void add(char code, Product price) {
 		price.setCode(code);
 		prices.put(code, price);
 	}
 	
-	public static Map<Character, Price> getPrices() {
+	public static Map<Character, Product> getPrices() {
 		return prices;
 	}
 	
-	public static Price getPrice(char code) {
+	public static Product getPrice(char code) {
 		return prices.get(code);
 	}
 

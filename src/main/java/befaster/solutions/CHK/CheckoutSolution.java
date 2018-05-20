@@ -29,7 +29,7 @@ public class CheckoutSolution {
         Map<Character, Integer> productCounts = countProducts(skus);
         
         // Get the products in the shopping cart, sorted so that the product with the largest base price is first 
-        List<Price> products;
+        List<Product> products;
 		try {
 			products = getProducts(productCounts.keySet());
 		} catch (UnknownProductException e) {
@@ -43,7 +43,7 @@ public class CheckoutSolution {
         Map<Character, Integer> freeCounts = new HashMap<Character, Integer>();
         for (Character code : productCounts.keySet()) {
         	int count = productCounts.get(code); 
-			Price price = Prices.getPrice(code);
+			Product price = Prices.getPrice(code);
 			for (GetItemsFreeOffer offer : price.getGetItemsFreeOffers()) {
 				
         		int freeItemCount = (count / offer.getOfferCount()) * offer.getItemCount();
@@ -83,7 +83,7 @@ public class CheckoutSolution {
         	while (itemsInOffer >= offer.getOfferCount()) {
         		for (int i = 0; i < offer.getOfferCount(); i++) {
         			// TODO Optimise?
-                	for (Price price : products) {
+                	for (Product price : products) {
                 		if (offer.getCodes().contains(price.getCode())) {
 	                    	Integer count = productCounts.get(price.getCode());
 	                    	if (count != null) {
@@ -111,7 +111,7 @@ public class CheckoutSolution {
 				count = count - freeItemCount;
 				if (count <= 0) continue;
 			}
-			Price price = Prices.getPrice(code);
+			Product price = Prices.getPrice(code);
         	if (price.getBulkBuyOffers().isEmpty()) {
         		total += count * price.getBasePrice();
         	} else {
@@ -157,12 +157,12 @@ public class CheckoutSolution {
 	}
 	
 	// TODO Move to product service
-	private List<Price> getProducts(Set<Character> productCodes) throws UnknownProductException {
+	private List<Product> getProducts(Set<Character> productCodes) throws UnknownProductException {
 		
-        List<Price> products = new ArrayList<Price>();
+        List<Product> products = new ArrayList<Product>();
         for (Character code : productCodes) {
         	// TODO Move to product DAO
-			Price product = Prices.getPrice(code);
+			Product product = Prices.getPrice(code);
 			// TODO? Should the null check be in the service, or the DAO?
 			if (product == null) {
 				throw new UnknownProductException("Unknown code: " + code);
@@ -177,10 +177,10 @@ public class CheckoutSolution {
 	}
 	
 	// TODO Move to offer service
-	private Set<GroupDiscountOffer> getGroupDiscountOffers(List<Price> products) {
+	private Set<GroupDiscountOffer> getGroupDiscountOffers(List<Product> products) {
 		
         Set<GroupDiscountOffer> offers = new HashSet<GroupDiscountOffer>();
-		for (Price product : products) {
+		for (Product product : products) {
 			if (product.getGroupDiscountOffer() != null) {
 				offers.add(product.getGroupDiscountOffer());
 			}
