@@ -8,48 +8,41 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * A solution to a "shopping checkout" coding challenge.
+ * 
+ * TODO? Discuss coding standards regarding comments in code
+ * 
+ * @author A Name
+ */
 public class CheckoutSolution {
 	
-    public Integer checkout(String skus) {
+	/**
+	 * Calculates the price for a given list of products, taking into account the offers currently available.
+	 * 
+	 * @param skus The single character product codes, concatenated into a string. 
+	 * @return The price for the products.
+	 */
+	public Integer checkout(String skus) {
     	
-    	// TODO Convert to upper case?
-    	
-    	// Count each code
-        Map<Character, Integer> counts = new HashMap<Character, Integer>();
-    	char[] codes = skus.toCharArray();
-        for (char code : codes) {
-			Integer count = counts.get(code);
-			if (count == null) {
-				count = 1;
-			} else {
-				++count;
-			}
-			counts.put(code, count);
-		}
+    	// Get a map from product code, to the number of that product in the shopping cart
+        Map<Character, Integer> productCounts = countProducts(skus);
         
-        // Check each code has a price, get list of prices, and sort bulk buy offers
-        List<Price> prices = new ArrayList<Price>();
-        Set<GroupDiscountOffer> gdos = new HashSet<GroupDiscountOffer>();
-        for (Character code : counts.keySet()) {
-			Price price = Prices.getPrice(code);
-			if (price == null) {
-				// TODO Logging
-				System.out.println("Unknown code: " + code);
-//				continue;
-				return -1;
-			}
-			Collections.sort(price.getBulkBuyOffers());
-			prices.add(price);
-			if (price.getGroupDiscountOffer() != null) {
-				gdos.add(price.getGroupDiscountOffer());
-			}
-        }
-		Collections.sort(prices);
+        // Get the products in the shopping cart, sorted so that the product with the largest base price is first 
+        List<Price> products;
+		try {
+			products = getProducts(productCounts.keySet());
+		} catch (UnknownProductException e) {
+	        // NOTE: Required to return -1 if an invalid product code is found
+			// TODO? Discuss Java logging solutions
+			System.out.println("ERROR - " + e.getMessage());
+			return -1;
+		}
         
         // Compute number of free items
         Map<Character, Integer> freeCounts = new HashMap<Character, Integer>();
-        for (Character code : counts.keySet()) {
-        	int count = counts.get(code); 
+        for (Character code : productCounts.keySet()) {
+        	int count = productCounts.get(code); 
 			Price price = Prices.getPrice(code);
 			for (GetItemsFreeOffer offer : price.getGetItemsFreeOffers()) {
 				
@@ -75,11 +68,12 @@ public class CheckoutSolution {
         // NOTE: To fulfil this requirement, it is necessary to apply a GDO to the most expensive items first
         //       For simplicity, the current implementation only considers the base price of each item
 		// TODO handling of overlapping group discounts
+        Set<GroupDiscountOffer> gdos = getGroupDiscountOffers(products);
         for (GroupDiscountOffer offer : gdos) {
 			// Count number of items in offer
         	int itemsInOffer = 0;
         	for (Character code : offer.getCodes()) {
-            	Integer count = counts.get(code);
+            	Integer count = productCounts.get(code);
             	if (count != null) {
             		itemsInOffer += count;
             	}
@@ -89,15 +83,15 @@ public class CheckoutSolution {
         	while (itemsInOffer >= offer.getOfferCount()) {
         		for (int i = 0; i < offer.getOfferCount(); i++) {
         			// TODO Optimise?
-                	for (Price price : prices) {
+                	for (Price price : products) {
                 		if (offer.getCodes().contains(price.getCode())) {
-	                    	Integer count = counts.get(price.getCode());
+	                    	Integer count = productCounts.get(price.getCode());
 	                    	if (count != null) {
 	                    		if (count == 1) {
-	                    			counts.remove(price.getCode());
+	                    			productCounts.remove(price.getCode());
 	                    		} else {
 	                    			--count;
-	                    			counts.put(price.getCode(), count);
+	                    			productCounts.put(price.getCode(), count);
 	                    		}
 	                    		break;
 	                    	}
@@ -110,8 +104,8 @@ public class CheckoutSolution {
 		}
         
     	// Add basic and bulk buy prices
-        for (Character code : counts.keySet()) {
-        	int count = counts.get(code); 
+        for (Character code : productCounts.keySet()) {
+        	int count = productCounts.get(code); 
 			Integer freeItemCount = freeCounts.get(code);
 			if (freeItemCount != null) {
 				count = count - freeItemCount;
@@ -135,4 +129,64 @@ public class CheckoutSolution {
         return total;
     }
 
+	/**
+	// TODO Move to product service
+	 * Counts the number of times each character occurs in the given string.
+	 * 
+	 * @param productCodes The product code characters, concatenated into a single string. 
+	 * @return A Map from product codes, to the number of instances in the given string.. 
+	 */
+	private Map<Character, Integer> countProducts(String productCodes) {
+		return countCharacters(productCodes);
+	}
+	
+	private Map<Character, Integer> countCharacters(String string) {
+	
+        Map<Character, Integer> counts = new HashMap<>();
+    	char[] codes = string.toCharArray();
+        for (char code : codes) {
+			Integer count = counts.get(code);
+			if (count == null) {
+				count = 1;
+			} else {
+				++count;
+			}
+			counts.put(code, count);
+		}
+        return counts;
+	}
+	
+	// TODO Move to product service
+	private List<Price> getProducts(Set<Character> productCodes) throws UnknownProductException {
+		
+        List<Price> products = new ArrayList<Price>();
+        for (Character code : productCodes) {
+        	// TODO Move to product DAO
+			Price product = Prices.getPrice(code);
+			// TODO? Should the null check be in the service, or the DAO?
+			if (product == null) {
+				throw new UnknownProductException("Unknown code: " + code);
+			}
+			
+			// TODO Move
+			Collections.sort(product.getBulkBuyOffers());
+			products.add(product);
+        }
+		Collections.sort(products);
+		return products;
+	}
+	
+	// TODO Move to offer service
+	private Set<GroupDiscountOffer> getGroupDiscountOffers(List<Price> products) {
+		
+        Set<GroupDiscountOffer> offers = new HashSet<GroupDiscountOffer>();
+		for (Price product : products) {
+			if (product.getGroupDiscountOffer() != null) {
+				offers.add(product.getGroupDiscountOffer());
+			}
+		}
+        
+        return offers;
+	}
+	
 }
