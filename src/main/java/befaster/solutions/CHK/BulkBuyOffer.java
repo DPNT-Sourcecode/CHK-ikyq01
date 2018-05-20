@@ -10,11 +10,11 @@ public class BulkBuyOffer implements Comparable<BulkBuyOffer> {
 		this.offerPrice = offerPrice;
 	}
 	
-	public Integer getOfferCount() {
+	public int getOfferCount() {
 		return offerCount;
 	}
 
-	public Integer getOfferPrice() {
+	public int getOfferPrice() {
 		return offerPrice;
 	}
 
