@@ -3,19 +3,36 @@ package befaster.solutions.CHK.product;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import befaster.solutions.CHK.ShoppingCart;
+
 public class ProductServiceImpl implements ProductService {
 	
 	private ProductDao productDao = new ProductDaoImpl();
-
-	@Override
-	public Map<Character, Integer> countProducts(String productCodes) {
-		return countCharacters(productCodes);
-	}
 	
+	@Override
+	public ShoppingCart getShoppingCart(String productCodesString) throws UnknownProductException {
+		
+		Map<Character, Integer> productCounts = countCharacters(productCodesString);
+		
+        List<Product> products = new ArrayList<Product>();
+        Set<Character> productCodes = new HashSet<>();
+        for (Character code : productCounts.keySet()) {
+			Product product = getProduct(code);
+			// TODO Move
+			Collections.sort(product.getBulkBuyOffers());
+			products.add(product);
+			productCodes.add(code);
+        }
+		Collections.sort(products);
+		
+		return new ShoppingCart(products, productCodes, productCounts);
+	}
+
 	/**
 	 * Counts the number of times each character occurs in the given string.
 	 */
@@ -43,20 +60,6 @@ public class ProductServiceImpl implements ProductService {
 			throw new UnknownProductException("Unknown code: " + code);
 		}
 		return product;
-	}
-	
-	@Override
-	public List<Product> getProducts(Set<Character> productCodes) throws UnknownProductException {
-		
-        List<Product> products = new ArrayList<Product>();
-        for (Character code : productCodes) {
-			Product product = getProduct(code);
-			// TODO Move
-			Collections.sort(product.getBulkBuyOffers());
-			products.add(product);
-        }
-		Collections.sort(products);
-		return products;
 	}
 	
 }
