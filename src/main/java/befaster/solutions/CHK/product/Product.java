@@ -9,6 +9,8 @@ import befaster.solutions.CHK.GroupDiscountOffer;
 
 /**
  * A product, containing a code, base price, and any applicable offers.
+ * 
+ * TODO Refactor constructors
  */
 public class Product implements Comparable<Product> {
 	

@@ -41,38 +41,18 @@ public class CheckoutSolution {
 	// TODO Explore issue of offer conflicts
    	private Integer calculatePrice(ShoppingCart cart) {
    		
-   		Price price = new Price(cart);
+        // TODO Create offer interface, and refactor
+   		GetItemsFreeOffer.applyOffers(cart); // NOTE: must be done first
+        BulkBuyOffer.applyOffers(cart);
+        GroupDiscountOffer.applyOffers(cart);
         
-        // TODO Extract BulkBuyOffer functionality, create offer interface, and refactor
-   		GetItemsFreeOffer.applyOffers(cart, price);
-        GroupDiscountOffer.applyOffers(cart, price);
-        
-    	// Add basic and bulk buy prices
-        for (Product product : cart.getProducts()) {
-        	
-        	int count = price.getCount(product);
-        	if (count == 0) continue;
-        	
-			Integer freeItemCount = price.getFreeCount(product);
-			if (freeItemCount != null) {
-				count = count - freeItemCount;
-				if (count <= 0) continue;
-			}
-        	if (product.getBulkBuyOffers().isEmpty()) {
-        		price.addToTotal(count * product.getBasePrice());
-        	} else {
-        		int remaining = count;
-        		for (BulkBuyOffer offer : product.getBulkBuyOffers()) {
-            		int offerPrice = (remaining / offer.getOfferCount()) * offer.getOfferPrice();
-            		price.addToTotal(offerPrice);
-            		remaining = remaining % offer.getOfferCount();
-        		}
-        		int basePrice = remaining * product.getBasePrice();
-        		price.addToTotal(basePrice);
-        	}
+    	// Add basic prices
+        for (Product product : cart.getChargeableProducts()) {
+        	int count = cart.getCount(product);
+        	cart.addToTotal(count * product.getBasePrice());
 		}
         
-        return price.getTotal();
+        return cart.getTotal();
     }
 
 }

@@ -41,7 +41,7 @@ public class GroupDiscountOffer {
 	}
 	
 	// TODO static
-	public static void applyOffers(ShoppingCart cart, Price price) {
+	public static void applyOffers(ShoppingCart cart) {
 		
         // Apply group discount offers
         // Requirement: "The policy of the supermarket is to always favor the customer when applying special offers."
@@ -53,7 +53,7 @@ public class GroupDiscountOffer {
 			// Count number of items in offer
         	int itemsInOffer = 0;
         	for (Character code : offer.getCodes()) {
-            	Integer count = price.getCount(code);
+            	Integer count = cart.getCount(code);
             	if (count != null) {
             		itemsInOffer += count;
             	}
@@ -64,16 +64,16 @@ public class GroupDiscountOffer {
         		for (int i = 0; i < offer.getOfferCount(); i++) {
                 	for (Product product : cart.getProducts()) {
                 		if (offer.getCodes().contains(product.getCode())) {
-	                    	int count = price.getCount(product);
+	                    	int count = cart.getCount(product);
 	                    	if (count != 0) {
                     			--count;
-                    			price.getProductCounts().put(product.getCode(), count);
+                    			cart.getProductCounts().put(product.getCode(), count);
 	                    		break;
 	                    	}
                 		}
                 	}
 				}
-        		price.addToTotal(offer.getOfferPrice());
+        		cart.addToTotal(offer.getOfferPrice());
         		itemsInOffer -= offer.getOfferCount();
         	}
 		}
