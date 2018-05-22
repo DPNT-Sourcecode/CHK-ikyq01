@@ -30,29 +30,22 @@ public class GetItemsFreeOffer implements Offer {
 
 	public void applyOffers(ShoppingCart cart) {
 		
-		// Count of free items
-		Map<Character, Integer> freeCounts = new HashMap<>();
-	    
+		// Count the number of free products
+		Map<Character, Integer> freeProductCounts = new HashMap<>();
 		for (Product product : cart.getProducts()) {
         	int count = cart.getCount(product);
 			for (GetItemsFreeOffer offer : product.getGetItemsFreeOffers()) {
-        		count = applyOffer(freeCounts, offer, count);
+        		count = countFreeProducts(freeProductCounts, offer, count);
     		}
 		}
 
-        // TODO Review
+        // Update the product counts on the cart
         for (Product product : cart.getProducts()) {
-        	int count = cart.getCount(product);
-			Integer freeItemCount = freeCounts.get(product.getCode());
-			if (freeItemCount != null) {
-				count = count - freeItemCount;
-				if (count <= 0) count = 0;
-				cart.getProductCounts().put(product.getCode(), count);
-			}
+        	updateCart(cart, product, freeProductCounts);
         }
 	}
 	
-	private int applyOffer(Map<Character, Integer> freeCounts, GetItemsFreeOffer offer, int count) {
+	private int countFreeProducts(Map<Character, Integer> freeCounts, GetItemsFreeOffer offer, int count) {
 		
 		int freeItemCount = (count / offer.getOfferCount()) * offer.getItemCount();
 		Integer totalFreeItemCount = freeCounts.get(offer.getOfferCode());
@@ -63,6 +56,16 @@ public class GetItemsFreeOffer implements Offer {
 		}
 		freeCounts.put(offer.getOfferCode(), totalFreeItemCount);
 		return count;
+	}
+	
+	private void updateCart(ShoppingCart cart, Product product, Map<Character, Integer> freeProductCounts) {
+    	int count = cart.getCount(product);
+		Integer freeItemCount = freeProductCounts.get(product.getCode());
+		if (freeItemCount != null) {
+			count = count - freeItemCount;
+			if (count <= 0) count = 0;
+			cart.getProductCounts().put(product.getCode(), count);
+		}
 	}
 	
 	public int getOfferCount() {

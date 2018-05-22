@@ -25,7 +25,7 @@ public class CheckoutSolution {
 	/**
 	 * Calculates the price for a given list of products, taking into account the offers currently available.
 	 * 
-	 * @param skus The single character product codes, concatenated into a string. 
+	 * @param skus The single character product codes (Stock Keeping Units, or SKUs), concatenated into a string. 
 	 * @return The price for the products.
 	 */
 	public Integer checkout(String skus) {
