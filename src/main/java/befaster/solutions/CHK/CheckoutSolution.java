@@ -1,5 +1,10 @@
 package befaster.solutions.CHK;
 
+import java.util.List;
+
+import befaster.solutions.CHK.offer.Offer;
+import befaster.solutions.CHK.offer.OfferService;
+import befaster.solutions.CHK.offer.OfferServiceImpl;
 import befaster.solutions.CHK.product.Product;
 import befaster.solutions.CHK.product.ProductService;
 import befaster.solutions.CHK.product.ProductServiceImpl;
@@ -15,6 +20,7 @@ import befaster.solutions.CHK.product.UnknownProductException;
 public class CheckoutSolution {
 	
 	private ProductService productService = new ProductServiceImpl();
+	private OfferService offerService = new OfferServiceImpl();
 	
 	/**
 	 * Calculates the price for a given list of products, taking into account the offers currently available.
@@ -41,12 +47,13 @@ public class CheckoutSolution {
 	// TODO Explore issue of offer conflicts
    	private Integer calculatePrice(ShoppingCart cart) {
    		
-        // TODO Create offer interface, and refactor
-   		GetItemsFreeOffer.applyOffers(cart); // NOTE: must be done first
-        BulkBuyOffer.applyOffers(cart);
-        GroupDiscountOffer.applyOffers(cart);
-        
-    	// Add basic prices
+   		// Apply any offers applicable to the products in the cart
+   		List<Offer> offers = offerService.getOffers();
+   		for (Offer offer : offers) {
+			offer.applyOffers(cart);
+		}
+   		
+    	// Add the basic prices
         for (Product product : cart.getChargeableProducts()) {
         	int count = cart.getCount(product);
         	cart.addToTotal(count * product.getBasePrice());

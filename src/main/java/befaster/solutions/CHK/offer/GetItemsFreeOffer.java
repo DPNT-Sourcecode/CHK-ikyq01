@@ -1,15 +1,20 @@
-package befaster.solutions.CHK;
+package befaster.solutions.CHK.offer;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import befaster.solutions.CHK.ShoppingCart;
 import befaster.solutions.CHK.product.Product;
 
-public class GetItemsFreeOffer {
+public class GetItemsFreeOffer implements Offer {
+	
+	protected static final GetItemsFreeOffer SINGLETON = new GetItemsFreeOffer();
 
-	private final int offerCount;
-	private final char offerCode;
-	private final int itemCount;
+	private int offerCount;
+	private char offerCode;
+	private int itemCount;
+	
+	private GetItemsFreeOffer() {};
 	
 	public GetItemsFreeOffer(int offerCount, char offerCode) {
 		this.offerCount = offerCount;
@@ -23,8 +28,7 @@ public class GetItemsFreeOffer {
 		this.itemCount = itemCount;
 	}
 
-	// TODO static
-	public static void applyOffers(ShoppingCart cart) {
+	public void applyOffers(ShoppingCart cart) {
 		
 		// Count of free items
 		Map<Character, Integer> freeCounts = new HashMap<>();
@@ -48,8 +52,7 @@ public class GetItemsFreeOffer {
         }
 	}
 	
-	// TODO static
-	private static int applyOffer(Map<Character, Integer> freeCounts, GetItemsFreeOffer offer, int count) {
+	private int applyOffer(Map<Character, Integer> freeCounts, GetItemsFreeOffer offer, int count) {
 		
 		int freeItemCount = (count / offer.getOfferCount()) * offer.getItemCount();
 		Integer totalFreeItemCount = freeCounts.get(offer.getOfferCode());

@@ -7,17 +7,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import befaster.solutions.CHK.BulkBuyOffer;
-import befaster.solutions.CHK.GroupDiscountOffer;
+import befaster.solutions.CHK.offer.BulkBuyOffer;
+import befaster.solutions.CHK.offer.GroupDiscountOffer;
 
 /**
  * Static implementation used for the coding challenge.
  */
 public class ProductDaoImpl implements ProductDao {
 
-	private static final Map<Character, Product> products = new HashMap<Character, Product>();
+	private static final Map<Character, Product> products = new HashMap<>();
 	static {
-		List<BulkBuyOffer> bulkBuyOffers = new ArrayList<BulkBuyOffer>();
+		List<BulkBuyOffer> bulkBuyOffers = new ArrayList<>();
 		bulkBuyOffers.add(new BulkBuyOffer(3, 130));
 		bulkBuyOffers.add(new BulkBuyOffer(5, 200));
 		add('A', new Product(50, bulkBuyOffers));

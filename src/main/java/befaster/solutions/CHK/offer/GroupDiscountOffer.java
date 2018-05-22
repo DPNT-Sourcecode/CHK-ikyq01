@@ -1,15 +1,20 @@
-package befaster.solutions.CHK;
+package befaster.solutions.CHK.offer;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import befaster.solutions.CHK.ShoppingCart;
 import befaster.solutions.CHK.product.Product;
 
-public class GroupDiscountOffer {
+public class GroupDiscountOffer implements Offer {
 
-	private final Set<Character> codes = new HashSet<Character>();
-	private final int offerCount;
-	private final int offerPrice;
+	protected static final GroupDiscountOffer SINGLETON = new GroupDiscountOffer();
+
+	private Set<Character> codes = new HashSet<Character>();
+	private int offerCount;
+	private int offerPrice;
+	
+	private GroupDiscountOffer() {};
 	
 	public GroupDiscountOffer(Set<Character> codes, int offerCount, int offerPrice) {
 		this.codes.addAll(codes);
@@ -17,37 +22,14 @@ public class GroupDiscountOffer {
 		this.offerPrice = offerPrice;
 	}
 	
-	public Set<Character> getCodes() {
-		return codes;
-	}
-
-	public Integer getOfferCount() {
-		return offerCount;
-	}
-
-	public Integer getOfferPrice() {
-		return offerPrice;
-	}
-	
-	public boolean equals(Object object) {
-		if (object == null) return false;
-		if (this == object) return true;
-		if (object instanceof GroupDiscountOffer) {
-			GroupDiscountOffer offer = (GroupDiscountOffer) object;
-			// TODO null handling
-			return offer.codes.equals(this.codes) && offer.offerCount == this.offerCount && offer.offerPrice == this.offerPrice;
-		}
-		return false;
-	}
-	
-	// TODO static
-	public static void applyOffers(ShoppingCart cart) {
+	public void applyOffers(ShoppingCart cart) {
 		
         // Apply group discount offers
         // Requirement: "The policy of the supermarket is to always favor the customer when applying special offers."
         // NOTE: To fulfil this requirement, it is necessary to apply a GDO to the most expensive items first
         //       For simplicity, the current implementation only considers the base price of each item
-		// TODO handling of overlapping group discounts
+		// TODO Handling of overlapping group discounts
+		// TODO Nesting in for loop
         Set<GroupDiscountOffer> gdos = getGroupDiscountOffers(cart);
         for (GroupDiscountOffer offer : gdos) {
 			// Count number of items in offer
@@ -79,8 +61,7 @@ public class GroupDiscountOffer {
 		}
 	}
 
-	// TODO static
-	private static Set<GroupDiscountOffer> getGroupDiscountOffers(ShoppingCart cart) {
+	private Set<GroupDiscountOffer> getGroupDiscountOffers(ShoppingCart cart) {
 		
         Set<GroupDiscountOffer> offers = new HashSet<GroupDiscountOffer>();
 		for (Product product : cart.getProducts()) {
@@ -88,8 +69,30 @@ public class GroupDiscountOffer {
 				offers.add(product.getGroupDiscountOffer());
 			}
 		}
-        
         return offers;
+	}
+	
+	public boolean equals(Object object) {
+		if (object == null) return false;
+		if (this == object) return true;
+		if (object instanceof GroupDiscountOffer) {
+			GroupDiscountOffer offer = (GroupDiscountOffer) object;
+			// TODO null handling
+			return offer.codes.equals(this.codes) && offer.offerCount == this.offerCount && offer.offerPrice == this.offerPrice;
+		}
+		return false;
+	}
+	
+	public Set<Character> getCodes() {
+		return codes;
+	}
+
+	public Integer getOfferCount() {
+		return offerCount;
+	}
+
+	public Integer getOfferPrice() {
+		return offerPrice;
 	}
 
 }
