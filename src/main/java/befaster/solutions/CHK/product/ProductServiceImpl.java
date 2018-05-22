@@ -3,10 +3,8 @@ package befaster.solutions.CHK.product;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import befaster.solutions.CHK.ShoppingCart;
 
@@ -14,23 +12,20 @@ public class ProductServiceImpl implements ProductService {
 	
 	private ProductDao productDao = new ProductDaoImpl();
 	
+	// NOTE: Product codes are case sensitive - currently all valid codes are upper-case letters
 	@Override
 	public ShoppingCart getShoppingCart(String productCodesString) throws UnknownProductException {
 		
 		Map<Character, Integer> productCounts = countCharacters(productCodesString);
 		
         List<Product> products = new ArrayList<Product>();
-        Set<Character> productCodes = new HashSet<>();
         for (Character code : productCounts.keySet()) {
 			Product product = getProduct(code);
-			// TODO Move
-			Collections.sort(product.getBulkBuyOffers());
 			products.add(product);
-			productCodes.add(code);
         }
 		Collections.sort(products);
 		
-		return new ShoppingCart(products, productCodes, productCounts);
+		return new ShoppingCart(products, productCounts);
 	}
 
 	/**

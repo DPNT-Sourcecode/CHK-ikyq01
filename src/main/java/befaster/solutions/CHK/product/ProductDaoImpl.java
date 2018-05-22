@@ -1,6 +1,7 @@
 package befaster.solutions.CHK.product;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -12,6 +13,8 @@ import befaster.solutions.CHK.offer.GroupDiscountOffer;
 
 /**
  * Static implementation used for the coding challenge.
+ * 
+ * NOTE: It is assumed that in any "real" solution, the list of products would be read from a configuration file or database
  */
 public class ProductDaoImpl implements ProductDao {
 
@@ -74,6 +77,10 @@ public class ProductDaoImpl implements ProductDao {
 		add('X', new Product(17, gdo));
 		add('Y', new Product(20, gdo));
 		add('Z', new Product(21, gdo));
+		
+		for (Product product : products.values()) {
+			Collections.sort(product.getBulkBuyOffers());
+		}
 	}
 	
 	private static void add(char code, Product product) {
@@ -86,8 +93,6 @@ public class ProductDaoImpl implements ProductDao {
 		return products.get(code);
 	}
 
-
-//	Our price table and offers: 
 //		+------+-------+---------------------------------+
 //		| Item | Price | Special offers                  |
 //		+------+-------+---------------------------------+

@@ -3,7 +3,6 @@ package befaster.solutions.CHK;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import befaster.solutions.CHK.product.Product;
 
@@ -13,21 +12,29 @@ import befaster.solutions.CHK.product.Product;
 public class ShoppingCart {
 	
 	private final List<Product> products;
-	private final Set<Character> productCodes;
+	
+	// The number of each type of product in the cart
+	// NOTE: These counts may be modified when special offers are applied  
 	private final Map<Character, Integer> productCounts;
 	
+	// The total price for the products
 	private int total = 0;
 	
-	public ShoppingCart(List<Product> products, Set<Character> productCodes, Map<Character, Integer> productCounts) {
+	public ShoppingCart(List<Product> products, Map<Character, Integer> productCounts) {
 		this.products = products;
-		this.productCodes = productCodes;
 		this.productCounts = productCounts;
 	}
 
+	/**
+	 * Gets all the products in the cart.
+	 */
 	public List<Product> getProducts() {
 		return products;
 	}
 	
+	/**
+	 * Gets just those products in the cart which remain chargeable, after special offers have been applied.
+	 */
 	public List<Product> getChargeableProducts() {
         List<Product> chargeableProducts = new ArrayList<Product>();
         for (Product product : products) {
@@ -39,18 +46,12 @@ public class ShoppingCart {
 		return chargeableProducts;
 	}
 	
-	public Set<Character> getProductCodes() {
-		return productCodes;
-	}
-
 	public Map<Character, Integer> getProductCounts() {
 		return productCounts;
 	}
 	
-	// TODO int vs Integer (product codes in GroupDiscountOffer may not appear in cart) 
-	
-	public int getCount(Product product) {
-		return productCounts.get(product.getCode());
+	public Integer getCount(Product product) {
+		return getCount(product.getCode());
 	}
 	
 	public Integer getCount(Character productCode) {

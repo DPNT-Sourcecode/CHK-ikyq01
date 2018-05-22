@@ -9,6 +9,7 @@ import org.junit.Test;
 import befaster.solutions.CHK.CheckoutSolution;
 
 public class CheckoutSolutionTest {
+	
     private CheckoutSolution checkout;
 
     @Before
@@ -16,40 +17,6 @@ public class CheckoutSolutionTest {
     	checkout = new CheckoutSolution();
     }
 
-//	Our price table and offers: 
-//	+------+-------+----------------+
-//	| Item | Price | Special offers |
-//	+------+-------+----------------+
-//	| A    | 50    | 3A for 130     |
-//	| B    | 30    | 2B for 45      |
-//	| C    | 20    |                |
-//	| D    | 15    |                |
-//	+------+-------+----------------+
-
-//	Our price table and offers: 
-//		+------+-------+------------------------+
-//		| Item | Price | Special offers         |
-//		+------+-------+------------------------+
-//		| A    | 50    | 3A for 130, 5A for 200 |
-//		| B    | 30    | 2B for 45              |
-//		| C    | 20    |                        |
-//		| D    | 15    |                        |
-//		| E    | 40    | 2E get one B free      |
-//		+------+-------+------------------------+
-
-//    Our price table and offers: 
-//    	+------+-------+------------------------+
-//    	| Item | Price | Special offers         |
-//    	+------+-------+------------------------+
-//    	| A    | 50    | 3A for 130, 5A for 200 |
-//    	| B    | 30    | 2B for 45              |
-//    	| C    | 20    |                        |
-//    	| D    | 15    |                        |
-//    	| E    | 40    | 2E get one B free      |
-//    	| F    | 10    | 2F get one F free      |
-//    	+------+-------+------------------------+
-    
-//	Our price table and offers: 
 //	+------+-------+---------------------------------+
 //	| Item | Price | Special offers                  |
 //	+------+-------+---------------------------------+
@@ -125,8 +92,6 @@ public class CheckoutSolutionTest {
         assertThat(checkout.checkout("FFFFFFF"), equalTo(50));
 
         assertThat(checkout.checkout("O"), equalTo(10));
-//        assertThat(checkout.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZ"), equalTo(965));
-//        assertThat(checkout.checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"), equalTo(1880));
 
         assertThat(checkout.checkout("Aa"), equalTo(-1));
     }
