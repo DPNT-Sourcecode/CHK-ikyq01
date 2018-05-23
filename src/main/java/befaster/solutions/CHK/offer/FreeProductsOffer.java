@@ -9,7 +9,8 @@ import befaster.solutions.CHK.product.Product;
 /**
  * A special offer, in which some products of one type are free, if some other products of another type are purchased.
  * 
- * TODO? This implementation is more general than necessary, as the number of free products is always 1
+ * TODO? This implementation is more general than necessary
+ *       Each product has at most one offer of this type, and the number of free products is always 1
  *       Would a more restricted implementation be preferable? 
  * 
  * NOTE: This offer needs to be applied first

@@ -30,11 +30,10 @@ public class ProductDaoImpl implements ProductDao {
 		add('D', new Product(15));
 		add('E', new Product(40, 2, 'B'));
 
-		// Implement initially using a BulkBuyOffer
-//		Our marketing team wants to try rewording the offer to see if it affects consumption
-//		Instead of multi-pricing this item they want to say "buy 2Fs and get another F free"
-//		The offer requires you to have 3 Fs in the basket.
-		// TODO Is there any practical difference? 
+		// NOTE: This uses a BulkBuyOffer to model an offer type introduced in CHK_R3
+		//		Our marketing team wants to try rewording the offer to see if it affects consumption
+		//		Instead of multi-pricing this item they want to say "buy 2Fs and get another F free"
+		//		The offer requires you to have 3 Fs in the basket.
 		add('F', new Product(10, 3, 20));
 		
 		add('G', new Product(20));
@@ -65,7 +64,8 @@ public class ProductDaoImpl implements ProductDao {
 		
 		add('S', new Product(20, gdo));
 		add('T', new Product(20, gdo));
-		add('U', new Product(40, 4, 120)); // TODO Syntactic sugar to help readability
+		// See NOTE above
+		add('U', new Product(40, 4, 120));
 		
 		bulkBuyOffers.clear();
 		bulkBuyOffers.add(new BulkBuyOffer(2, 90));

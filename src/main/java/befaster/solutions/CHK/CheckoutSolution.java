@@ -44,7 +44,6 @@ public class CheckoutSolution {
 		return calculatePrice(cart);
 	}
     
-	// TODO Explore issue of offer conflicts
    	private int calculatePrice(ShoppingCart cart) {
    		
    		// Apply any offers applicable to the products in the cart
