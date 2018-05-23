@@ -15,17 +15,17 @@ import befaster.solutions.CHK.product.Product;
  * NOTE: This offer needs to be applied first
  * NOTE: Introduced in CHK_R2
  */
-public class GetProductsFreeOffer implements Offer {
+public class FreeProductsOffer implements Offer {
 	
-	protected static final GetProductsFreeOffer SINGLETON = new GetProductsFreeOffer();
+	protected static final FreeProductsOffer SINGLETON = new FreeProductsOffer();
 
 	private int numberOfChargedProducts;
 	private int numberOfFreeProducts;
 	private char freeProductCode;
 	
-	private GetProductsFreeOffer() {};
+	private FreeProductsOffer() {};
 	
-	public GetProductsFreeOffer(int numberOfChargedProducts, int numberOfFreeProducts, char freeProductCode) {
+	public FreeProductsOffer(int numberOfChargedProducts, int numberOfFreeProducts, char freeProductCode) {
 		this.numberOfChargedProducts = numberOfChargedProducts;
 		this.numberOfFreeProducts = numberOfFreeProducts;
 		this.freeProductCode = freeProductCode;
@@ -38,7 +38,7 @@ public class GetProductsFreeOffer implements Offer {
 		Map<Character, Integer> freeProductCounts = new HashMap<>();
 		for (Product product : cart.getProducts()) {
         	int count = cart.getCount(product);
-			for (GetProductsFreeOffer offer : product.getGetProductsFreeOffers()) {
+			for (FreeProductsOffer offer : product.getFreeProductsOffers()) {
         		count = countFreeProducts(freeProductCounts, offer, count);
     		}
 		}
@@ -49,7 +49,7 @@ public class GetProductsFreeOffer implements Offer {
         }
 	}
 	
-	private int countFreeProducts(Map<Character, Integer> freeProductCounts, GetProductsFreeOffer offer, int count) {
+	private int countFreeProducts(Map<Character, Integer> freeProductCounts, FreeProductsOffer offer, int count) {
 		
 		int freeProductCount = (count / offer.numberOfChargedProducts) * offer.numberOfFreeProducts;
 		Integer totalFreeProductCount = freeProductCounts.get(offer.freeProductCode);
