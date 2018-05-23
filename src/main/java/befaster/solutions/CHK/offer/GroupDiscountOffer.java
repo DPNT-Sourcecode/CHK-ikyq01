@@ -57,22 +57,18 @@ public class GroupDiscountOffer implements Offer {
 		// Apply the offer, starting with most expensive products
 		while (productsInOffer >= offer.numberOfProducts) {
 			for (int i = 0; i < offer.numberOfProducts; i++) {
-				if (!handleNext(offer, cart)) {
-					break;
-				}
+				handleNext(offer, cart);
 			}
 			cart.addToTotal(offer.offerPrice);
 			productsInOffer -= offer.numberOfProducts;
 		}
 	}
 
-	// Returns true if the offer was applied to a product
-	private boolean handleNext(GroupDiscountOffer offer, ShoppingCart cart) {
+	private void handleNext(GroupDiscountOffer offer, ShoppingCart cart) {
 
 		for (Product product : cart.getProducts()) {
-			if (applyForProduct(offer, cart, product)) return true;
+			if (applyForProduct(offer, cart, product)) return;
 		}
-		return false;
 	}
 
 	// Returns true if the offer was applied to the product
