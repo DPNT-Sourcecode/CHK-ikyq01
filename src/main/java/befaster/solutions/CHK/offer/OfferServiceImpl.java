@@ -10,7 +10,7 @@ public class OfferServiceImpl implements OfferService {
 
 	private static final List<Offer> offers = new ArrayList<>();
 	static {
-		offers.add(GetItemsFreeOffer.SINGLETON); // NOTE: This offer needs to be applied first
+		offers.add(GetProductsFreeOffer.SINGLETON); // NOTE: This offer needs to be applied first
 		offers.add(BulkBuyOffer.SINGLETON);
 		offers.add(GroupDiscountOffer.SINGLETON);
 	}

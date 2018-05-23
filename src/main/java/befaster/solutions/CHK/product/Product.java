@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import befaster.solutions.CHK.offer.BulkBuyOffer;
-import befaster.solutions.CHK.offer.GetItemsFreeOffer;
+import befaster.solutions.CHK.offer.GetProductsFreeOffer;
 import befaster.solutions.CHK.offer.GroupDiscountOffer;
 
 /**
@@ -17,7 +17,7 @@ public class Product implements Comparable<Product> {
 	private char code;
 	private final int basePrice;
 	
-	private final List<GetItemsFreeOffer> getProductsFreeOffers = new ArrayList<>();
+	private final List<GetProductsFreeOffer> getProductsFreeOffers = new ArrayList<>();
 	private final List<BulkBuyOffer> bulkBuyOffers = new ArrayList<>();
 	private final GroupDiscountOffer groupDiscountOffer;
 	
@@ -34,7 +34,7 @@ public class Product implements Comparable<Product> {
 	
 	public Product(int basePrice, int numberOfChargedProducts, char freeProductCode) {
 		this.basePrice = basePrice;
-		this.getProductsFreeOffers.add(new GetItemsFreeOffer(numberOfChargedProducts, 1, freeProductCode));
+		this.getProductsFreeOffers.add(new GetProductsFreeOffer(numberOfChargedProducts, 1, freeProductCode));
 		this.groupDiscountOffer = null;
 	}
 	
@@ -61,7 +61,7 @@ public class Product implements Comparable<Product> {
 		return basePrice;
 	}
 
-	public List<GetItemsFreeOffer> getGetProductsFreeOffers() {
+	public List<GetProductsFreeOffer> getGetProductsFreeOffers() {
 		return getProductsFreeOffers;
 	}
 
