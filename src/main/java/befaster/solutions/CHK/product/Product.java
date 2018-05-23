@@ -17,8 +17,8 @@ public class Product implements Comparable<Product> {
 	private char code;
 	private final int basePrice;
 	
-	private final List<BulkBuyOffer> bulkBuyOffers = new ArrayList<BulkBuyOffer>();
-	private final List<GetItemsFreeOffer> getItemsFreeOffers = new ArrayList<GetItemsFreeOffer>();
+	private final List<GetItemsFreeOffer> getProductsFreeOffers = new ArrayList<>();
+	private final List<BulkBuyOffer> bulkBuyOffers = new ArrayList<>();
 	private final GroupDiscountOffer groupDiscountOffer;
 	
 	public Product(int basePrice) {
@@ -32,9 +32,9 @@ public class Product implements Comparable<Product> {
 		this.groupDiscountOffer = null;
 	}
 	
-	public Product(int basePrice, int offerCount, char offerCode) {
+	public Product(int basePrice, int numberOfChargedProducts, char freeProductCode) {
 		this.basePrice = basePrice;
-		this.getItemsFreeOffers.add(new GetItemsFreeOffer(offerCount, offerCode));
+		this.getProductsFreeOffers.add(new GetItemsFreeOffer(numberOfChargedProducts, 1, freeProductCode));
 		this.groupDiscountOffer = null;
 	}
 	
@@ -61,12 +61,12 @@ public class Product implements Comparable<Product> {
 		return basePrice;
 	}
 
-	public List<BulkBuyOffer> getBulkBuyOffers() {
-		return bulkBuyOffers;
+	public List<GetItemsFreeOffer> getGetProductsFreeOffers() {
+		return getProductsFreeOffers;
 	}
 
-	public List<GetItemsFreeOffer> getGetItemsFreeOffers() {
-		return getItemsFreeOffers;
+	public List<BulkBuyOffer> getBulkBuyOffers() {
+		return bulkBuyOffers;
 	}
 
 	public GroupDiscountOffer getGroupDiscountOffer() {

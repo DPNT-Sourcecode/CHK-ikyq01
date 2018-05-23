@@ -4,7 +4,7 @@ import befaster.solutions.CHK.ShoppingCart;
 import befaster.solutions.CHK.product.Product;
 
 /**
- * A special offer, in which multiple instances of a given product are presented at a reduced price.
+ * A special offer, in which multiple products of a given type are presented at a reduced price.
  * 
  * Multiple bulk-buy offers may apply to a given product. In this case the offers are applied in order, starting with 
  * the offer applicable to the largest number of items. 
@@ -15,13 +15,13 @@ public class BulkBuyOffer implements Offer, Comparable<BulkBuyOffer> {
 
 	protected static final BulkBuyOffer SINGLETON = new BulkBuyOffer();
 
-	private int numberOfItems;
+	private int numberOfProducts;
 	private int offerPrice;
 	
 	private BulkBuyOffer() {};
 	
-	public BulkBuyOffer(int numberOfItems, int offerPrice) {
-		this.numberOfItems = numberOfItems;
+	public BulkBuyOffer(int numberOfProducts, int offerPrice) {
+		this.numberOfProducts = numberOfProducts;
 		this.offerPrice = offerPrice;
 	}
 
@@ -37,9 +37,9 @@ public class BulkBuyOffer implements Offer, Comparable<BulkBuyOffer> {
 		int count = cart.getCount(product);
 		// Apply the offers, starting with that applicable to the largest number of items
 		for (BulkBuyOffer offer : product.getBulkBuyOffers()) {
-    		int offerPrice = (count / offer.getNumberOfItems()) * offer.getOfferPrice();
+    		int offerPrice = (count / offer.numberOfProducts) * offer.offerPrice;
     		cart.addToTotal(offerPrice);
-    		count = count % offer.getNumberOfItems();
+    		count = count % offer.numberOfProducts;
 		}
 		int basePrice = count * product.getBasePrice();
 		cart.addToTotal(basePrice);
@@ -48,15 +48,7 @@ public class BulkBuyOffer implements Offer, Comparable<BulkBuyOffer> {
 	
 	@Override
 	public int compareTo(BulkBuyOffer offer) {
-		return offer.numberOfItems - this.numberOfItems;
-	}
-	
-	public int getNumberOfItems() {
-		return numberOfItems;
-	}
-
-	public int getOfferPrice() {
-		return offerPrice;
+		return offer.numberOfProducts - this.numberOfProducts;
 	}
 
 }

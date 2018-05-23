@@ -45,7 +45,7 @@ public class CheckoutSolution {
 	}
     
 	// TODO Explore issue of offer conflicts
-   	private Integer calculatePrice(ShoppingCart cart) {
+   	private int calculatePrice(ShoppingCart cart) {
    		
    		// Apply any offers applicable to the products in the cart
    		List<Offer> offers = offerService.getOffers();

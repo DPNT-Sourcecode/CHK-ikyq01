@@ -61,7 +61,7 @@ public class ProductDaoImpl implements ProductDao {
 		codes.add('X');
 		codes.add('Y');
 		codes.add('Z');
-		GroupDiscountOffer gdo = new GroupDiscountOffer(codes, 3, 45);
+		GroupDiscountOffer gdo = new GroupDiscountOffer(3, 45, codes);
 		
 		add('S', new Product(20, gdo));
 		add('T', new Product(20, gdo));
